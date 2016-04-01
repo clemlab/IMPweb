@@ -1,0 +1,46 @@
+Learning how to create a website using django.
+
+
+The goal of this project would be to create a simple website that would accept
+either entered into an interactive field or as a file a protein sequence (if
+I have time sequences) and perform some calculation on it and return the result
+of that calculation in an appropriate formet. The code for the calculation
+would be provided to me, and shouldn't be considered part of the project 
+as I will not be writing it. Ideally there would be multiple selections and a 
+system for extending the code to cover different calculations. 
+
+The code would be written in python using the Django framework. I am familiar
+with python, but not with Django or web development in general. The code that
+will run be run on the protein will use numpy and/or scipy. 
+
+
+Risks:
+
+Input sanitization. Ideally this would eventually be a public-facing website,
+so having basic security precautions in place is necessary. 
+
+I'm basically walking into web development blind. The Django project itself has
+a tutorial I'm planning to follow for the first couple of weeks, but I'll need
+to consult with the teachers to find out the unknown unknowns.
+
+Implementation plan:
+
+First Week:
+
+First half of tutorial
+https://docs.djangoproject.com/en/1.9/intro/
+parts install-3
+
+Second Week:
+
+same tutorial
+parts 4-7
+
+Third Week:
+
+Advanced tutorial
+Simple field
+
+Fourth Week:
+
+Input sanitation
