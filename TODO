@@ -1,0 +1,31 @@
+save inputs to sqlite
+error-logging
+email-sending when done (neeed another field)
+bokeh for visualization
+scheduler for cluster queue [torque]
+qsub/job submission
+
+5-10 sequences of 1k chars each. carrot > chars
+
+name of jobs 
+
+non-mutually exclusive checkboxes to see what will be run
+frontend?
+
+hosted on broad server
+
+
+
+
+
+___________________TO-DO_____________________________
+
+0. EMAIL OUT RESULTS #DONE?#
+
+1. FILE UPLOADING AND SENDING OF SEQUENCES
+
+2. HIGHER-UP SANITIZATION
+
+3. SUPPORT FOR ARBITRARY NUMBERS OF SEQUENCES
+
+4. JOB QUEUEING 
