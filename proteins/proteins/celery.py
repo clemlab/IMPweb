@@ -12,9 +12,9 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'proteins.settings')
 
 from django.conf import settings  # noqa
 
-app = Celery('proteins', 
-	broker='amqp://', 
-	backend='amqp://', 
+app = Celery('proteins',
+	broker='amqp://',
+	backend='amqp://',
 	include=['form.tasks'])
 
 # Using a string here means the worker will not have to

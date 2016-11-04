@@ -7,7 +7,7 @@ from .tasks import calculate_score
 def email_script(POST, sanitized):
 	test_list = [POST['your_email']]
 	test_subject = POST['job_name']
-	calculate_score.apply_async((test_list, test_subject, sanitized), 
+	calculate_score.apply_async((test_list, test_subject, sanitized),
 		queue='celery')
 	return 'Your job will be processed shortly'
 
@@ -64,6 +64,3 @@ def curate_sequence(seq, nucleotide=True, keep_register=False):
         return re_remove.sub('X', seq)
     else:
         return re_remove.sub('', seq)
-
-
-
