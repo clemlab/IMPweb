@@ -2,6 +2,9 @@
 *~
 .DS_Store
 
+# don't keep django db under version control
+db.sqlite3
+
 # Byte-compiled / optimized / DLL files
 */__pycache__/*
 *.py[cod]
