@@ -4,34 +4,38 @@ import os
 
 from .tasks import calculate_score
 
+
 def email_script(POST, sanitized):
-	test_list = [POST['your_email']]
-	test_subject = POST['job_name']
-	calculate_score.apply_async((test_list, test_subject, sanitized),
-		queue='celery')
-	return 'Your job will be processed shortly'
+    test_list = [POST['your_email']]
+    test_subject = POST['job_name']
+    calculate_score.apply_async((test_list, test_subject, sanitized),
+                                queue='celery')
+    return 'Your job will be processed shortly'
+
 
 def silly_script(string):
-	return string[::-1]
+    return string[::-1]
+
 
 def saniscript(POST, FILES):
-	sanitized = []
-	if POST['protein'] == '':
-		attachment = FILES.get('protein_file', False)
-		for line in attachment:
-			try:
-				sanitized.append(curate_sequence(str(line)))
-			except TypeError:
-				return ['']
-		if sanitized != []:
-			return sanitized
-		else:
-			return ['']
-	else:
-		sequence = POST['protein']
-		sequence = curate_sequence(sequence)
-		sanitized = [sequence]
-		return sanitized
+    sanitized = []
+    if POST['protein'] == '':
+        attachment = FILES.get('protein_file', False)
+        for line in attachment:
+            try:
+                sanitized.append(curate_sequence(str(line)))
+            except TypeError:
+                return ['']
+        if sanitized != []:
+            return sanitized
+        else:
+            return ['']
+    else:
+        sequence = POST['protein']
+        sequence = curate_sequence(sequence)
+        sanitized = [sequence]
+        return sanitized
+
 
 def curate_sequence(seq, nucleotide=True, keep_register=False):
     """Removing non-standard characters from a sequence

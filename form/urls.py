@@ -15,8 +15,8 @@ returns the reverse of the string in the your_name entry in the post dictionary
 """
 
 urlpatterns = [
-	url(r'^$',views.get_name, name = 'name'),
-	url(r'^thanks',views.thanks, name = 'thanks'),
-	url(r'^your',views.index, name= 'test'),
-	url(r'^', views.formredirect, name = 'redirect'),
+    url(r'^$', views.get_name, name='name'),
+    url(r'^thanks', views.thanks, name='thanks'),
+    url(r'^your', views.index, name='test'),
+    url(r'^', views.formredirect, name='redirect'),
 ]

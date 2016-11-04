@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 import os
 
 
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -27,12 +26,13 @@ SECRET_KEY = '&u0=z#6!8@44@kgm3ce$bu2+wt^1%y!(ljsrnn6gqqwxz9lu4g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.157.149', '192.168.157.149.']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost',
+                 '192.168.157.149', '192.168.157.149.']
 
 
-CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 
-#Email settings
+# Email settings
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'cnelson.django.test@gmail.com'
 EMAIL_HOST_PASSWORD = 'Lazenby0'
@@ -69,7 +69,7 @@ ROOT_URLCONF = 'proteins.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
