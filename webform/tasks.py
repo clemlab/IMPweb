@@ -1,4 +1,4 @@
-from proteins.celery import app
+from memprot_project.celery import app
 
 from django.core.mail import send_mail, EmailMessage
 
