@@ -20,7 +20,7 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^form/', include('form.urls')),
+    url(r'^form/', include('webform.urls')),
     url(r'^admin', admin.site.urls),
     url(r'^your', views.index, name='test'),
     url(r'^', views.baseredirect),
