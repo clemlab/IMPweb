@@ -2,8 +2,7 @@ from proteins.celery import app
 
 from django.core.mail import send_mail, EmailMessage
 
-import single_calc
-
+#import single_calc
 
 @app.task
 def calculate_score(test_list, test_subject, sanitized):
@@ -11,7 +10,8 @@ def calculate_score(test_list, test_subject, sanitized):
 	sender = 'cnelson.django.test@gmail.com'
 	results = open('results.txt', 'w')
 	for element in sanitized:
-		results.write(single_calc.get_score(element))
+		# results.write(single_calc.get_score(element))
+		results.write(len(element))
 		results.write('\n')
 	results.close()
 	test_message = 'file attached'
