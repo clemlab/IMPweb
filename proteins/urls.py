@@ -1,4 +1,4 @@
-"""proteins URL Configuration
+"""memprot_project URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.9/topics/http/urls/
@@ -20,8 +20,7 @@ from . import views
 
 
 urlpatterns = [
-    url(r'^form/', include('webform.urls')),
-    url(r'^admin', admin.site.urls),
-    url(r'^your', views.index, name='test'),
-    url(r'^', views.baseredirect),
+    url(r'^$', views.index),
+    url(r'^webform/', include('webform.urls')),
+    url(r'^admin/', admin.site.urls),
 ]
