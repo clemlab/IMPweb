@@ -1,8 +1,8 @@
-from memprot_project import app
-
 from django.core.mail import send_mail, EmailMessage
 
 # import single_calc
+
+from memprot_project import app
 
 
 @app.task

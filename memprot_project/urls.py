@@ -18,7 +18,6 @@ from django.contrib import admin
 
 from . import views
 
-
 urlpatterns = [
     url(r'^$', views.index),
     url(r'^webform/', include('webform.urls')),

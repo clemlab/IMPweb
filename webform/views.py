@@ -28,10 +28,6 @@ def thanks(request):
         return HttpResponseRedirect('/form/')
 
 
-def formredirect(request):
-    return HttpResponseRedirect('/form/')
-
-
 def get_name(request):
     # if this is a POST request, we need to process it
     # the first part of the if statement is never called
