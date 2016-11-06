@@ -26,8 +26,8 @@ SECRET_KEY = '&u0=z#6!8@44@kgm3ce$bu2+wt^1%y!(ljsrnn6gqqwxz9lu4g'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost',
-                 '192.168.157.149', '192.168.157.149.']
+ALLOWED_HOSTS = ('127.0.0.1', 'localhost',
+                 '192.168.157.149', '192.168.157.149.')
 
 
 CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
@@ -41,7 +41,7 @@ EMAIL_USE_SSL = True
 
 
 # Application definition
-INSTALLED_APPS = [
+INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -50,9 +50,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'webform',
     'djcelery',
-]
+    'social.apps.django_app.default',
+)
 
-MIDDLEWARE_CLASSES = [
+MIDDLEWARE_CLASSES = (
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -61,7 +62,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+)
 
 ROOT_URLCONF = 'memprot_project.urls'
 
@@ -76,6 +77,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social.apps.django_app.context_processors.backends',
+                'social.apps.django_app.context_processors.login_redirect',
             ],
         },
     },
@@ -126,10 +129,29 @@ USE_TZ = True
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [STATIC_DIR, ]
+STATICFILES_DIRS = (STATIC_DIR, )
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
+
+# Authentication methods provided by python-social-auth
+AUTHENTICATION_BACKENDS = (
+    'social.backends.github.GithubOAuth2',
+    'social.backends.zotero.ZoteroOAuth',
+    'social.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+)
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+SOCIAL_AUTH_GITHUB_KEY = 'c1f8df1469375db82e49'
+SOCIAL_AUTH_GITHUB_SECRET = 'e9bcf59efaa6a6990abf654852f504dd8449cfe4'
+
+SOCIAL_AUTH_ZOTERO_KEY = '0f40744a282798ee1346'
+SOCIAL_AUTH_ZOTERO_SECRET = '136241b902bd6399adfd'
+
+
+
+LOGIN_REDIRECT_URL = '/'
