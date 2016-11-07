@@ -19,10 +19,10 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^$', views.index),
+    url(r'^$', views.index, name="index"),
     url(r'^webform/', include('webform.urls')),
-    url(r'^admin/', admin.site.urls),
+    url(r'^admin/', admin.site.urls, name='admin'),
     url(r'', include('social.apps.django_app.urls', namespace='social')),
     url(r'^logout/$', 'django.contrib.auth.views.logout',
-        {'next_page': '/'})
+        {'next_page': '/'}, name='logout')
 ]

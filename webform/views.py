@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 
-from .form import SubmissionForm
+from .form import SubmissionForm, UserProfileForm
 
 from .script import email_script, saniscript
 
@@ -25,7 +25,7 @@ def thanks(request):
             return HttpResponse(email_script(request.POST, sanitized_input))
     # If not it redirect to form
     else:
-        return HttpResponseRedirect('/form/')
+        return HttpResponseRedirect('/webform/')
 
 
 def get_name(request):
@@ -34,8 +34,52 @@ def get_name(request):
     if request.method == 'POST':
         form = SubmissionForm(request.POST)
         if form.is_valid():
-            return HttpResponseRedirect('/form/thanks/')
+            return HttpResponseRedirect('/webform/thanks/')
     else:
         form = SubmissionForm()
 
     return render(request, 'basic_input.html', {'form': form})
+
+
+def profile(request):
+    # A boolean value for telling the template
+    # whether the registration was successful.
+    # Set to False initially. Code changes value to
+    # True when registration succeeds.
+    registered = False
+
+    # If it's a HTTP POST, we're interested in processing form data.
+    if request.method == 'POST':
+        # Attempt to grab information from the raw form information.
+        # Note that we make use of both UserForm and UserProfileForm.
+        profile_form = UserProfileForm(data=request.POST)
+
+        # If the two forms are valid...
+        if profile_form.is_valid():
+            # Now sort out the UserProfile instance.
+            # Since we need to set the user attribute ourselves,
+            # we set commit=False. This delays saving the model
+            # until we're ready to avoid integrity problems.
+            profile = profile_form.save(commit=False)
+
+            # Now we save the UserProfile model instance.
+            profile.save()
+
+            # Update our variable to indicate that the template
+            # registration was successful.
+            registered = True
+        else:
+            # Invalid form or forms - mistakes or something else?
+            # Print problems to the terminal.
+            print(profile_form.errors)
+    else:
+        # Not a HTTP POST, so we render our form using two ModelForm instances.
+        # These forms will be blank, ready for user input.
+        #user_form = UserForm()
+        profile_form = UserProfileForm()
+
+    # Render the template depending on the context.
+    return render(request,
+                  'user_profile.html',
+                  {'profile_form': profile_form,
+                   'registered': registered})
