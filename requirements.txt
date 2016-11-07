@@ -1,0 +1,16 @@
+django
+biopython
+
+# running calculations
+celery
+django-celery
+django-
+pbs_python
+
+# user authentication
+python-social-auth
+bcrypt
+
+# data visualization
+numpy
+bokeh
