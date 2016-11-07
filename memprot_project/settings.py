@@ -62,6 +62,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
 )
 
 ROOT_URLCONF = 'memprot_project.urls'
@@ -153,6 +154,10 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
+SOCIAL_AUTH_FORCE_EMAIL_VALIDATION = True
+SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
+LOGIN_REDIRECT_URL = '/'
+
 
 SOCIAL_AUTH_GITHUB_KEY = 'c1f8df1469375db82e49'
 SOCIAL_AUTH_GITHUB_SECRET = 'e9bcf59efaa6a6990abf654852f504dd8449cfe4'
@@ -160,6 +165,5 @@ SOCIAL_AUTH_GITHUB_SECRET = 'e9bcf59efaa6a6990abf654852f504dd8449cfe4'
 SOCIAL_AUTH_ZOTERO_KEY = '0f40744a282798ee1346'
 SOCIAL_AUTH_ZOTERO_SECRET = '136241b902bd6399adfd'
 
-
-
-LOGIN_REDIRECT_URL = '/'
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '879494813518-rcbi4hintm2ae2kgocleab9dd7b1b720.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '_g-lvlvnivjx-AgJ3s8PgGV5'

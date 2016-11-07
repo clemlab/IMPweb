@@ -4,6 +4,13 @@
 <form action="thanks" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
+    {% if user.is_authenticated %}
     <input type="submit" value="Submit" />
+    {% else %}
+    Please log in!
+    {% endif %}
 </form>
 {% endblock %}
+
+<!-- see here for custom styling http://stackoverflow.com/questions/5827590/css-styling-in-django-forms -->
+<!-- embedding bokeh plots http://stackoverflow.com/a/29524050/2320823 -->

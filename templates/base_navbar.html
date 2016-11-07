@@ -27,21 +27,22 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li><a href="/">Home</a></li>
-        <li><a href="/webform/">MLExpression</a></li>
+        <li><a href="{% url 'index' %}">Home</a></li>
+        <li><a href="{% url 'webform' %}">MLExpression</a></li>
 
         {% if user.is_authenticated %}
         <li class="dropdown">
           <button href="#" class="btn navbar-btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }} <span class="caret"></span></button>
           <ul class="dropdown-menu">
-            <li><a href="#">User Settings</a></li>
-            <li><a href="/logout/">Logout</a></li>
+            <li><a href="{% url 'profile' %}">User Settings</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
           </ul>
         </li>
         {% else %}
         <li class="dropdown">
           <button href="#" class="btn navbar-btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User Login<span class="caret"></span></button>
           <ul class="dropdown-menu">
+            <li><a href="/login/google-oauth2/">Google</a></li>
             <li><a href="/login/github/">Github</a></li>
             <li><a href="/login/zotero/">Zotero</a></li>
           </ul>
