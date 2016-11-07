@@ -5,6 +5,9 @@
 # don't keep django db under version control
 db.sqlite3
 
+# while under development, don't keep under version control
+*/migrations/*
+
 # Byte-compiled / optimized / DLL files
 */__pycache__/*
 *.py[cod]
@@ -71,4 +74,3 @@ target/
 
 # pyenv
 .python-version
-
