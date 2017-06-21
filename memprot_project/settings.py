@@ -30,7 +30,7 @@ ALLOWED_HOSTS = ('127.0.0.1', 'localhost',
                  '192.168.157.149', '192.168.157.149.')
 
 
-CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
+#CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 
 # Email settings
 EMAIL_HOST = 'smtp.gmail.com'
@@ -49,8 +49,8 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webform',
-    'djcelery',
-    'social.apps.django_app.default',
+    #'djcelery',
+    'social_django',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -148,10 +148,10 @@ STATICFILES_FINDERS = (
 
 # Authentication methods provided by python-social-auth
 AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
     'social.backends.github.GithubOAuth2',
     'social.backends.zotero.ZoteroOAuth',
     'social.backends.google.GoogleOAuth2',
-    'django.contrib.auth.backends.ModelBackend',
 )
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
 SOCIAL_AUTH_FORCE_EMAIL_VALIDATION = True

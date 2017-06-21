@@ -2,10 +2,10 @@ from django.core.mail import send_mail, EmailMessage
 
 # import single_calc
 
-from memprot_project import app
+#from memprot_project import app
 
 
-@app.task
+#@app.task
 def calculate_score(test_list, test_subject, sanitized):
     body = 'This email is to confirm a successful test\n'
     sender = 'cnelson.django.test@gmail.com'
