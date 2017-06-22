@@ -7,7 +7,8 @@ from .tasks import calculate_score
 def email_script(POST, sanitized):
     test_list = [POST['your_email']]
     test_subject = POST['job_name']
-    django_rq.enqueue(calculate_score, test_list, test_subject, sanitized)
+    test_fun = POST['method']
+    django_rq.enqueue(calculate_score, test_list, test_subject, test_fun, sanitized)
     return 'Your job will be processed shortly'
 
 

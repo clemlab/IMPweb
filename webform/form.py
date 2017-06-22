@@ -1,4 +1,14 @@
 from django import forms
+from inspect import getmembers, isfunction
+
+
+
+
+funs = [
+    ('length', 'Length'),
+    ('rev', 'Reverse'),
+    ('spam', 'spam'),
+]
 
 
 class SubmissionForm(forms.Form):
@@ -7,6 +17,7 @@ class SubmissionForm(forms.Form):
     protein = forms.CharField(widget=forms.Textarea, required=False)
     # protein_name = forms.CharField(label = 'File name?', max_length = 50)
     protein_file = forms.FileField(required=False)
+    method = forms.ChoiceField(choices=funs, required=True )
 
     # forms.ValidationError("Need to provide an input")
 
