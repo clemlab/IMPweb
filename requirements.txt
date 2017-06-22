@@ -2,13 +2,11 @@ django
 biopython
 
 # running calculations
-celery
-django-celery
-django-
-pbs_python
+rq
 
 # user authentication
-python-social-auth
+pyjwkest
+python-social-auth[django]
 bcrypt
 
 # data visualization
