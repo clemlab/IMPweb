@@ -12,7 +12,7 @@ def calculate_score(test_list, test_subject, sanitized):
     results = open('results.txt', 'w')
     for element in sanitized:
         # results.write(single_calc.get_score(element))
-        results.write(len(element))
+        results.write(str(len(element)))
         results.write('\n')
     results.close()
     test_message = 'file attached'

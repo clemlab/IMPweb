@@ -62,8 +62,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'social.apps.django_app.middleware.SocialAuthExceptionMiddleware',
-)
+    'social_django.middleware.SocialAuthExceptionMiddleware',
+    )
 
 ROOT_URLCONF = 'memprot_project.urls'
 
@@ -158,6 +158,7 @@ SOCIAL_AUTH_FORCE_EMAIL_VALIDATION = True
 SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 
+SOCIAL_AUTH_USER_MODEL = 'webform.UserProfile'
 
 SOCIAL_AUTH_GITHUB_KEY = 'c1f8df1469375db82e49'
 SOCIAL_AUTH_GITHUB_SECRET = 'e9bcf59efaa6a6990abf654852f504dd8449cfe4'

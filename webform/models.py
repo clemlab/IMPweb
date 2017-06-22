@@ -7,8 +7,9 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
     # The additional attributes we wish to include
+    username = models.CharField(max_length=100, default='some_rando')
     institution = models.CharField(max_length=100)
-    work_email = models.EmailField()
+    email = models.EmailField()
     website = models.URLField(blank=True)
 
     job_priority = models.IntegerField(default=-100)

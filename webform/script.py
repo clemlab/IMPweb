@@ -6,8 +6,7 @@ from .tasks import calculate_score
 def email_script(POST, sanitized):
     test_list = [POST['your_email']]
     test_subject = POST['job_name']
-    calculate_score.apply_async((test_list, test_subject, sanitized),
-                                queue='celery')
+    calculate_score(test_list, test_subject, sanitized)
     return 'Your job will be processed shortly'
 
 
