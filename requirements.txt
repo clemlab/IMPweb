@@ -3,6 +3,7 @@ biopython
 
 # running calculations
 rq
+django-rq
 
 # user authentication
 pyjwkest

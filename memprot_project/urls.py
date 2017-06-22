@@ -25,5 +25,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls, name='admin'),
     url(r'', include('social_django.urls', namespace='social')),
     url(r'^logout/$', logout,
-        {'next_page': '/'}, name='logout')
+        {'next_page': '/'}, name='logout'),
+    url(r'^django-rq/', include('django_rq.urls')),
 ]

@@ -1,4 +1,5 @@
 from django.core.mail import send_mail, EmailMessage
+import django_rq
 
 from .tasks import calculate_score
 
@@ -6,7 +7,7 @@ from .tasks import calculate_score
 def email_script(POST, sanitized):
     test_list = [POST['your_email']]
     test_subject = POST['job_name']
-    calculate_score(test_list, test_subject, sanitized)
+    django_rq.enqueue(calculate_score, test_list, test_subject, sanitized)
     return 'Your job will be processed shortly'
 
 

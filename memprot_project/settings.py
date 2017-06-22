@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'webform',
     #'djcelery',
     'social_django',
+    'django_rq',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -168,3 +169,31 @@ SOCIAL_AUTH_ZOTERO_SECRET = '136241b902bd6399adfd'
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '879494813518-rcbi4hintm2ae2kgocleab9dd7b1b720.apps.googleusercontent.com'
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '_g-lvlvnivjx-AgJ3s8PgGV5'
+
+
+# Redis Queues
+
+RQ_QUEUES = {
+    'default': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+        'DEFAULT_TIMEOUT': 360,
+    },
+    'high': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+        'DEFAULT_TIMEOUT': 500,
+    },
+    'low': {
+        'HOST': 'localhost',
+        'PORT': 6379,
+        'DB': 0,
+    }
+}
+
+
+
+
+

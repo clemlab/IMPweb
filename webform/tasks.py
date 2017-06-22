@@ -1,11 +1,11 @@
 from django.core.mail import send_mail, EmailMessage
-
+from time import sleep
 # import single_calc
 
-#from memprot_project import app
 
 
-#@app.task
+
+
 def calculate_score(test_list, test_subject, sanitized):
     body = 'This email is to confirm a successful test\n'
     sender = 'cnelson.django.test@gmail.com'
@@ -19,5 +19,6 @@ def calculate_score(test_list, test_subject, sanitized):
     email = EmailMessage(test_subject + ' test results', body, sender,
                          test_list)
     email.attach_file('results.txt')
+    sleep(60)
     email.send(fail_silently=False)
     return 'your email has been sent'
