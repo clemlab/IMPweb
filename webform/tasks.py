@@ -1,7 +1,9 @@
 from django.core.mail import send_mail, EmailMessage
 from time import sleep
-from inspect import getmembers, isfunction
-# import single_calc
+
+
+# Imports all functions from funfile
+# There should point to other functions elsewhere that perform calculations
 from .funfile import *
 
 
@@ -12,11 +14,11 @@ def calculate_score(test_list, test_subject, fun, sanitized):
     sender = 'cnelson.django.test@gmail.com'
     results = open('results.txt', 'w')
     for element in sanitized:
-        # results.write(single_calc.get_score(element))
+        # Evaluate the function chosen by the user with the given arg
         results.write(str(globals()[fun](element)))
         results.write('\n')
     results.close()
-    test_message = 'file attached'
+    # Emails out the results
     email = EmailMessage(test_subject + ' test results', body, sender,
                          test_list)
     email.attach_file('results.txt')

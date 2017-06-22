@@ -49,7 +49,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'webform',
-    #'djcelery',
     'social_django',
     'django_rq',
 )

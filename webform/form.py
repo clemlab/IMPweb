@@ -3,7 +3,9 @@ from inspect import getmembers, isfunction
 
 
 
-
+# All the possible functions for the drop-down menu
+# Order is (function name, shown name)
+# function name will be called later, so make sure it's correct
 funs = [
     ('length', 'Length'),
     ('rev', 'Reverse'),
@@ -15,7 +17,6 @@ class SubmissionForm(forms.Form):
     your_email = forms.EmailField(label='Your email:', max_length=100)
     job_name = forms.CharField(label='Job Name', max_length=50)
     protein = forms.CharField(widget=forms.Textarea, required=False)
-    # protein_name = forms.CharField(label = 'File name?', max_length = 50)
     protein_file = forms.FileField(required=False)
     method = forms.ChoiceField(choices=funs, required=True )
 

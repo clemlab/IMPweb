@@ -19,9 +19,10 @@ def thanks(request):
         if sanitized_input == ['']:
             return HttpResponse('Error in data given.')
         else:
-            for element in sanitized_input:
-                if len(element) <= 30:
-                    return HttpResponse('some input too short')
+            # Commented out for testing purposes
+            #for element in sanitized_input:
+            #    if len(element) <= 30:
+            #        return HttpResponse('some input too short')
             return HttpResponse(email_script(request.POST, sanitized_input))
     # If not it redirect to form
     else:

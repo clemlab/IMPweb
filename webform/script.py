@@ -4,14 +4,17 @@ import django_rq
 from .tasks import calculate_score
 
 
+# Extracts information from a post and sanitized input
 def email_script(POST, sanitized):
     test_list = [POST['your_email']]
     test_subject = POST['job_name']
     test_fun = POST['method']
+    # Adds the information to the queue
     django_rq.enqueue(calculate_score, test_list, test_subject, test_fun, sanitized)
     return 'Your job will be processed shortly'
 
 
+# WIP script to sanitize inputs
 def saniscript(POST, FILES):
     sanitized = []
     if POST['protein'] == '':

@@ -1,4 +1,4 @@
-
+# Current implementation is all jokes
 
 def length(stuff):
 	return len(stuff)
