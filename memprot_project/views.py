@@ -12,4 +12,4 @@ def index(request):
 
 def site_logout(request):
 	logout(request)
-	return index(request)
+	return HttpResponseRedirect('/')
