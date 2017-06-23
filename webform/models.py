@@ -1,18 +1,23 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, User, UserManager
 
 
-class UserProfile(models.Model):
+class UserProfile(AbstractBaseUser):
     # Links UserProfile to a User model instance
-    user = models.OneToOneField(User)
+    objects = UserManager()
 
     # The additional attributes we wish to include
     username = models.CharField(max_length=100, default='some_rando')
     institution = models.CharField(max_length=100)
-    email = models.EmailField()
+    email = models.EmailField(unique=True)
     website = models.URLField(blank=True)
 
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+
     job_priority = models.IntegerField(default=-100)
+
+    USERNAME_FIELD = 'email'
 
     def __str__(self):
         return self.user.username

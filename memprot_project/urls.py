@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.contrib.auth import logout
 
 from . import views
 
@@ -24,7 +23,6 @@ urlpatterns = [
     url(r'^webform/', include('webform.urls')),
     url(r'^admin/', admin.site.urls, name='admin'),
     url(r'', include('social_django.urls', namespace='social')),
-    url(r'^logout/$', logout,
-        {'next_page': '/'}, name='logout'),
+    url(r'^logout/$', views.site_logout, name='logout'),
     url(r'^django-rq/', include('django_rq.urls')),
 ]
