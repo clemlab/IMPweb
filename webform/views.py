@@ -23,7 +23,8 @@ def thanks(request):
             #for element in sanitized_input:
             #    if len(element) <= 30:
             #        return HttpResponse('some input too short')
-            return HttpResponse(email_script(request.POST, sanitized_input))
+            status = email_script(request.POST, sanitized_input)
+            return render(request, 'results.html', {'data': status})
     # If not it redirect to form
     else:
         return HttpResponseRedirect('/webform/')
