@@ -10,7 +10,7 @@ def email_script(POST, sanitized):
     test_subject = POST['job_name']
     test_fun = POST['method']
     # Adds the information to the queue
-    django_rq.enqueue(calculate_score, test_list, test_subject, test_fun, sanitized)
+    calculate_score.delay(test_list, test_subject, test_fun, sanitized)
     return 'Your job will be processed shortly'
 
 

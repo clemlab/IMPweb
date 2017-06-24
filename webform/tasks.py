@@ -1,5 +1,7 @@
-from django.core.mail import send_mail, EmailMessage
 from time import sleep
+
+from django.core.mail import send_mail, EmailMessage
+from django_rq import job
 
 
 # Imports all functions from funfile
@@ -7,8 +9,7 @@ from time import sleep
 from .funfile import *
 
 
-
-
+@job
 def calculate_score(test_list, test_subject, fun, sanitized):
     body = 'This email is to confirm a successful test\n'
     sender = 'cnelson.django.test@gmail.com'
