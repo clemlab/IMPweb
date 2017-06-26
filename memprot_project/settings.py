@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'webform',
     'social_django',
     'django_rq',
+    'crispy_forms',
 )
 
 MIDDLEWARE_CLASSES = (

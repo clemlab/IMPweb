@@ -1,15 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'base_input.html' %}
 
 {% block body_block %}
 
-    {% include "webform_navbar.html" %}
-    {% block navbar_block %}{% endblock %}
+
 
 <form action="thanks" method="post" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
     {% if user.is_authenticated %}
-    <input type="submit" value="Submit" />
+    {% csrf_token %}
+    {% load crispy_forms_tags %}
+    {% crispy form %}
     {% else %}
     Please log in!
     {% endif %}
