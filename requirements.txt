@@ -1,6 +1,9 @@
 django
 biopython
 
+#nice forms
+django-crispy-forms
+
 # running calculations
 rq
 django-rq
