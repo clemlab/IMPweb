@@ -1,0 +1,9 @@
+
+#Start redis
+redis-server /usr/local/etc/redis.conf
+
+#Start workers after redis
+python manage.py rqworker high default low
+
+#Start server
+python manage.py runserver

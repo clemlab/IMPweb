@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
+
+    {% include "webform_navbar.html" %}
+    {% block navbar_block %}{% endblock %}
+
 <form action="thanks" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
@@ -12,5 +16,8 @@
 </form>
 {% endblock %}
 
+
 <!-- see here for custom styling http://stackoverflow.com/questions/5827590/css-styling-in-django-forms -->
 <!-- embedding bokeh plots http://stackoverflow.com/a/29524050/2320823 -->
+
+
