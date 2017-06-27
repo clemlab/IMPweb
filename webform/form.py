@@ -31,7 +31,7 @@ class SubmissionForm(forms.Form):
         self.helper.layout = Layout(
             Fieldset(
                 'Submission Form',
-                'your_email',
+                Field('your_email', template='crispy/bootstrap3/field.html'),
                 'job_name',
                 'protein',
                 'protein_file',
