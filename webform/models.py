@@ -1,6 +1,38 @@
+import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, User, UserManager
+from django import forms
 
+# All the possible functions for the drop-down menu
+# Order is (function name, shown name)
+# function name will be called later, so make sure it's correct
+funs = [
+    ('length', 'Length'),
+    ('rev', 'Reverse'),
+    ('spam', 'spam'),
+]
+
+class JobEntry(models.Model):
+    job_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user_id = models.EmailField(max_length=100)
+    job_email = models.EmailField(max_length=100)
+    job_name = models.CharField(max_length=50)
+    sanitized_input = models.CharField(max_length=3000) 
+    is_public = models.BooleanField()
+    results = models.FileField()
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('webform', args=[str(self.job_id)])
+
+
+class SubmissionEntry(models.Model):
+    your_email = forms.EmailField(label='Your email:', max_length=100)
+    job_name = forms.CharField(label='Job Name', max_length=50)
+    protein = forms.CharField(widget=forms.Textarea, required=False)
+    protein_file = forms.FileField(required=False)
+    method = forms.ChoiceField(choices=funs, required=True)
+    display_mode = forms.BooleanField(label='Display publically?', required=False)
 
 class UserProfile(AbstractBaseUser):
     # Links UserProfile to a User model instance

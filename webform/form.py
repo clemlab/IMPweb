@@ -5,25 +5,32 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field, Fieldset, ButtonHolder
 from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions
 
-
-# All the possible functions for the drop-down menu
-# Order is (function name, shown name)
-# function name will be called later, so make sure it's correct
-funs = [
-    ('length', 'Length'),
-    ('rev', 'Reverse'),
-    ('spam', 'spam'),
-]
+from .models import SubmissionEntry, funs
 
 
-class SubmissionForm(forms.Form):
-            
+
+
+class SubmissionForm(forms.ModelForm):
     your_email = forms.EmailField(label='Your email:', max_length=100)
     job_name = forms.CharField(label='Job Name', max_length=50)
     protein = forms.CharField(widget=forms.Textarea, required=False)
     protein_file = forms.FileField(required=False)
     method = forms.ChoiceField(choices=funs, required=True)
-    display_mode = forms.BooleanField(label='Display publically?')
+    display_mode = forms.BooleanField(label='Display publically?', required=False)    
+
+    
+    class Meta:
+        model = SubmissionEntry
+        fields = (
+            'your_email',
+            'job_name',
+            'protein',
+            'protein_file',
+            'method',
+            'display_mode',
+            )
+
+
 
     def __init__(self, *args, **kwargs):
         super(SubmissionForm, self).__init__(*args, **kwargs)
