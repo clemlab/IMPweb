@@ -1,10 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
-
+import django.contrib.auth as auth
 from .form import SubmissionForm, UserProfileForm
 
 from .script import email_script, saniscript
 
+from .models import SubmissionEntry
+
+def db_view(request):
+    query_results = SubmissionEntry.objects.all()
+    return HttpResponse(str(query_results))
 
 # Create your views here.
 def index(request):
@@ -23,7 +28,8 @@ def thanks(request):
             #for element in sanitized_input:
             #    if len(element) <= 30:
             #        return HttpResponse('some input too short')
-            status = email_script(request.POST, sanitized_input)
+            user = auth.get_user(request)
+            status = email_script(user.get_username(), request.POST, sanitized_input)
             return render(request, 'results.html', {'data': status})
     # If not it redirect to form
     else:
