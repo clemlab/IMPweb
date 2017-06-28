@@ -19,11 +19,19 @@ class JobEntry(models.Model):
     job_name = models.CharField(max_length=50)
     sanitized_input = models.CharField(max_length=3000) 
     is_public = models.BooleanField()
-    results = models.FileField()
+    results = models.CharField(max_length=300)
+
+    def __str__(self):
+        return self.job_name 
 
     def get_absolute_url(self):
         from django.urls import reverse
-        return reverse('webform', args=[str(self.job_id)])
+        return reverse('db_view', args=[str(self.job_id)])
+
+    def output(self):
+        return str(self.user_id) + '\n' + str(self.job_email) + '\n' + \
+            str(self.job_name) + '\n' + self.sanitized_input + \
+            str(self.is_public) + '\n' + str(self.results)
 
 
 class SubmissionEntry(models.Model):
@@ -50,9 +58,10 @@ class UserProfile(AbstractBaseUser):
     job_priority = models.IntegerField(default=-100)
 
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['email']
 
     def __str__(self):
-        return self.user.username
+        return self.email
 
 
 class Seq(models.Model):
