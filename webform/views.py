@@ -5,11 +5,14 @@ from .form import SubmissionForm, UserProfileForm
 
 from .script import email_script, saniscript
 
-from .models import SubmissionEntry
+from .models import SubmissionEntry, JobEntry
 
-def db_view(request):
-    query_results = SubmissionEntry.objects.all()
-    return HttpResponse(str(query_results))
+def db_view(request, uuid=False):
+    if not uuid:
+        path = request.path_info
+        uuid = path[16:-1]
+    job = JobEntry.objects.get(job_id=uuid)
+    return HttpResponse(job.output())
 
 # Create your views here.
 def index(request):
@@ -29,7 +32,7 @@ def thanks(request):
             #    if len(element) <= 30:
             #        return HttpResponse('some input too short')
             user = auth.get_user(request)
-            status = email_script(user.get_username(), request.POST, sanitized_input)
+            status = email_script(str(user), request.POST, sanitized_input)
             return render(request, 'results.html', {'data': status})
     # If not it redirect to form
     else:

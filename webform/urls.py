@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^$', views.get_name, name='webform'),
     url(r'^thanks', views.thanks, name='thanks'),
     url(r'^profile/$', views.profile, name='profile'),
-    url(r'^dbquery/$', views.db_view, name='db_view')
+    url(r'^dbquery/$', views.db_view, name='db_view_dep'),
+    url(r'^result=(?P<uuid>[^/]+)/$', views.db_view, name='db_view')
     # url(r'^', views.formredirect, name='redirect'),
 ]
