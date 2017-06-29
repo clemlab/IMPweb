@@ -22,7 +22,7 @@ urlpatterns = [
     url(r'^$', views.index, name="index"),
     url(r'^webform/', include('webform.urls')),
     url(r'^admin/', admin.site.urls, name='admin'),
-    url(r'', include('social_django.urls', namespace='social')),
+    url(r'^accounts/', include('allauth.urls')),
     url(r'^logout/$', views.site_logout, name='logout'),
     url(r'^django-rq/', include('django_rq.urls')),
 ]

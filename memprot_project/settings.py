@@ -48,10 +48,15 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'webform',
-    'social_django',
     'django_rq',
     'crispy_forms',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -79,8 +84,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'social.apps.django_app.context_processors.backends',
-                'social.apps.django_app.context_processors.login_redirect',
+                'django.template.context_processors.request',
             ],
         },
     },
@@ -133,6 +137,7 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 ]
 
+SITE_ID = 2
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -150,16 +155,22 @@ STATICFILES_FINDERS = (
 # Authentication methods provided by python-social-auth
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
-    'social_core.backends.github.GithubOAuth2',
-    'social_core.backends.zotero.ZoteroOAuth',
-    'social_core.backends.google.GoogleOAuth2',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
-SOCIAL_AUTH_URL_NAMESPACE = 'social'
-SOCIAL_AUTH_FORCE_EMAIL_VALIDATION = True
-SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
+#SOCIAL_AUTH_URL_NAMESPACE = 'social'
+#SOCIAL_AUTH_FORCE_EMAIL_VALIDATION = True
+#SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
 LOGIN_REDIRECT_URL = '/'
+SOCIALACCOUNT_QUERY_EMAIL = True
+ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': ['email'],
+        'METHOD': 'ouath2'  # instead of 'oauth2'
+    }
+}
 
-#SOCIAL_AUTH_USER_MODEL = 'webform.UserProfile'
+AUTH_USER_MODEL = 'webform.UserProfile'
 
 SOCIAL_AUTH_GITHUB_KEY = 'c1f8df1469375db82e49'
 SOCIAL_AUTH_GITHUB_SECRET = 'e9bcf59efaa6a6990abf654852f504dd8449cfe4'

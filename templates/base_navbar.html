@@ -34,7 +34,7 @@
         <li class="dropdown">
           <button href="#" class="btn navbar-btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }} <span class="caret"></span></button>
           <ul class="dropdown-menu">
-            <li><a href="{% url 'profile' %}">User Settings</a></li>
+            <li><a href="{% url 'logout' %}">User Settings</a></li>
             <li><a href="{% url 'logout' %}">Logout</a></li>
           </ul>
         </li>
@@ -42,9 +42,8 @@
         <li class="dropdown">
           <button href="#" class="btn navbar-btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User Login<span class="caret"></span></button>
           <ul class="dropdown-menu">
-            <li><a href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Google</a></li>
-            <li><a href="{% url 'social:begin' 'github' %}?next={{ request.path }}">Github</a></li>
-            <li><a href="{% url 'social:begin' 'zotero' %}?next={{ request.path }}">Zotero</a></li>
+            {% load socialaccount %}
+            <li><a href="{% provider_login_url "google" process="login" %}">Google</a></li>
           </ul>
         </li>
         {% endif %}

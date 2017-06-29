@@ -58,7 +58,6 @@ class UserProfile(AbstractBaseUser):
     job_priority = models.IntegerField(default=-100)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['email']
 
     def __str__(self):
         return self.email
@@ -81,7 +80,7 @@ class Predictor(models.Model):
 
 
 class SeqPred(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(UserProfile)
     seq = models.ForeignKey(Seq)
     pred = models.ForeignKey(Predictor)
 
@@ -89,4 +88,4 @@ class SeqPred(models.Model):
 
     def __str__(self):
         return "{user}_{seq}_{pred}".format(
-            User, Seq, Predictor)
+            UserProfile, Seq, Predictor)

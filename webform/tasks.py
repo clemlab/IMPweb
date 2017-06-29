@@ -30,7 +30,7 @@ def calculate_score(test_list, test_subject, fun, sanitized, jobid):
     sender = settings.EMAIL_HOST_USER
 
     # delay for testing django_rq
-    time.sleep(10)
+    #time.sleep(10)
 
     # set up results notification
     email = EmailMessage(test_subject + ' test results',
@@ -47,12 +47,12 @@ def calculate_score(test_list, test_subject, fun, sanitized, jobid):
             results.append(result)
         
         tf.close()
+        job.results = str(results)
+        job.save()
         email.attach_file(tf.name)
 
         email.send(fail_silently=False)
-        job = JobEntry.objects.get(job_id=jobid)
-        job.results = str(results)
-        job.save()
+
         
 
     return 'your email has been sent'
