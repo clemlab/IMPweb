@@ -42,27 +42,9 @@ class SubmissionEntry(models.Model):
     method = forms.ChoiceField(choices=funs, required=True)
     display_mode = forms.BooleanField(label='Display publically?', required=False)
 
-class UserProfile(AbstractBaseUser):
-    # Links UserProfile to a User model instance
-    objects = UserManager()
-
-    # The additional attributes we wish to include
-    username = models.CharField(max_length=100, default='some_rando')
-    institution = models.CharField(max_length=100)
-    email = models.EmailField(unique=True)
-    website = models.URLField(blank=True)
-
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
-
-    job_priority = models.IntegerField(default=-100)
-
-    USERNAME_FIELD = 'email'
-
-    def __str__(self):
-        return self.email
 
 
+'''
 class Seq(models.Model):
     seqid = models.TextField()
     nucseq = models.TextField()
@@ -89,3 +71,5 @@ class SeqPred(models.Model):
     def __str__(self):
         return "{user}_{seq}_{pred}".format(
             UserProfile, Seq, Predictor)
+
+'''

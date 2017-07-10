@@ -10,8 +10,9 @@ django-rq
 
 # user authentication
 pyjwkest
-python-social-auth[django]
 bcrypt
+django-allauth
+
 
 # data visualization
 numpy

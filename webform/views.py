@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 import django.contrib.auth as auth
-from .form import SubmissionForm, UserProfileForm
+from .form import SubmissionForm
 
 from .script import email_script, saniscript
 

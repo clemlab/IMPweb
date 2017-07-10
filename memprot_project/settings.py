@@ -39,6 +39,7 @@ EMAIL_HOST_PASSWORD = 'Lazenby0'
 EMAIL_PORT = 465
 EMAIL_USE_SSL = True
 
+#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # Application definition
 INSTALLED_APPS = (
@@ -49,14 +50,15 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
-    'webform',
-    'django_rq',
-    'crispy_forms',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
+    'memprot_project.apps.ProjectConfig',
+    'webform',
+    'django_rq',
+    'crispy_forms',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -68,7 +70,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'social_django.middleware.SocialAuthExceptionMiddleware',
     )
 
 ROOT_URLCONF = 'memprot_project.urls'
@@ -137,7 +138,7 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 ]
 
-SITE_ID = 2
+SITE_ID = 3
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -162,7 +163,6 @@ AUTHENTICATION_BACKENDS = (
 #SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 SOCIALACCOUNT_QUERY_EMAIL = True
-ACCOUNT_ADAPTER = 'allauth.account.adapter.DefaultAccountAdapter'
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': ['email'],
@@ -170,7 +170,19 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-AUTH_USER_MODEL = 'webform.UserProfile'
+PASSWORD_INPUT_RENDER_VALUE = '*'
+
+AUTH_USER_MODEL = 'memprot_project.UserProfile'
+
+ACCOUNT_SIGNUP_FORM_CLASS = 'memprot_project.form.UserProfileSignupForm'
+ACCOUNT_ADAPTER = 'memprot_project.adapter.AccountAdapter'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
+
 
 SOCIAL_AUTH_GITHUB_KEY = 'c1f8df1469375db82e49'
 SOCIAL_AUTH_GITHUB_SECRET = 'e9bcf59efaa6a6990abf654852f504dd8449cfe4'
