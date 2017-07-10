@@ -5,17 +5,13 @@ from django.db import models
 
 
 
-from django.contrib.auth.signals import user_logged_in
-from django.contrib.auth.models import update_last_login
-
-user_logged_in.disconnect(update_last_login)
 
 class UserProfile(AbstractBaseUser, PermissionsMixin):
     # Links UserProfile to a User model instance
     objects = UserManager()
 
     # The additional attributes we wish to include
-    username = models.CharField(max_length=100, default='some_rando', primary_key=True)
+    username = models.CharField(max_length=100, default='s08    fhc 2', unique=True)
     institution = models.CharField(max_length=100)
     email = models.EmailField(unique=True)
     website = models.URLField(blank=True)
@@ -24,7 +20,6 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
-    last_login = models.DateField(null=True)
     job_priority = models.IntegerField(default=-100)
 
     USERNAME_FIELD = 'username'
@@ -33,7 +28,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ['email', 'institution']
 
     def __str__(self):
-        return self.email
+        return self.username
 
     def get_short_name(self):
         return self.username

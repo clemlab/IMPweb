@@ -45,7 +45,7 @@ class LoginForm(forms.Form):
 
     def login(self, request, user):
         from allauth.account.utils import perform_login
-        response = perform_login(request, user, None)
+        response = perform_login(request, user, 'Mandatory')
         return response
 
     def __init__(self, *args, **kwargs):

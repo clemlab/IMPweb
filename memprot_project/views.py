@@ -27,7 +27,7 @@ def site_signup(request):
     else:
         form = UserProfileSignupForm()
 
-    return render(request, 'login_form.html', {'form': form}, {'redirect': 'signup'})
+    return render(request, 'login_form.html', {'form': form})
 
 def site_login(request):
     # if this is a POST request, we need to process it

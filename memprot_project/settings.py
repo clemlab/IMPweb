@@ -138,7 +138,7 @@ PASSWORD_HASHERS = [
     'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 ]
 
-SITE_ID = 3
+SITE_ID = 0
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
@@ -182,6 +182,7 @@ ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
+LOGIN_ON_EMAIL_CONFIRMATION = True
 
 
 SOCIAL_AUTH_GITHUB_KEY = 'c1f8df1469375db82e49'

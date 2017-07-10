@@ -43,7 +43,9 @@
           <button href="#" class="btn navbar-btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">User Login<span class="caret"></span></button>
           <ul class="dropdown-menu">
             {% load socialaccount %}
-            <li><a href="{% provider_login_url "google" process="login" %}">Google</a></li>
+            <li><a href="{% url 'signup' %}">Sign up</a></li>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% provider_login_url "google" process="login" %}">Google Login</a></li>
           </ul>
         </li>
         {% endif %}

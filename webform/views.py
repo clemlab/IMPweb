@@ -7,6 +7,8 @@ from .script import email_script, saniscript
 
 from .models import SubmissionEntry, JobEntry
 
+from allauth.account.decorators import verified_email_required
+
 def db_view(request, uuid=False):
     if not uuid:
         path = request.path_info
@@ -18,7 +20,6 @@ def db_view(request, uuid=False):
 def index(request):
     # test view
     return HttpResponse("something has gone right or wrong or something")
-
 
 def thanks(request):
     # if it receives a post from get_name, it spams some poor soul's email
@@ -38,7 +39,7 @@ def thanks(request):
     else:
         return HttpResponseRedirect('/webform/')
 
-
+@verified_email_required
 def get_name(request):
     # if this is a POST request, we need to process it
     # the first part of the if statement is never called

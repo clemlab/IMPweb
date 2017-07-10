@@ -2,8 +2,7 @@
 
 
 def murder_console(sender, **kwargs):
-	for i in range(100):
-		print('koszonom!')
+	print('Received signal')
 
 def garbage_fundion(sender, request=False, user=False, **kwargs):
 	if not user or not request:
