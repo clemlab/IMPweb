@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ('127.0.0.1', 'localhost',
 #CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 
 # Email settings
+# FIGURE OUT SOME WAY TO TAKE OUT PLAINTEXT PASS
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'cnelson.django.test@gmail.com'
 EMAIL_HOST_PASSWORD = 'Lazenby0'
@@ -55,8 +56,8 @@ INSTALLED_APPS = (
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.github',
-    'memprot_project.apps.ProjectConfig',
-    'webform',
+    'memprot_project.apps.ProjectConfig',       # So that we can tie into signals
+    'webform',                                  # Eventually will add signals
     'django_rq',
     'crispy_forms',
 )
@@ -153,14 +154,13 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-# Authentication methods provided by python-social-auth
+# Authentication methods provided by django-allauth
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-#SOCIAL_AUTH_URL_NAMESPACE = 'social'
-#SOCIAL_AUTH_FORCE_EMAIL_VALIDATION = True
-#SOCIAL_AUTH_LOGIN_ERROR_URL = '/'
+
+# NEED TO UPDATE VALID REDIRECTS IN GOOGLE APIS WHEN YOU CHANGE
 LOGIN_REDIRECT_URL = '/'
 SOCIALACCOUNT_QUERY_EMAIL = True
 SOCIALACCOUNT_PROVIDERS = {
@@ -169,22 +169,28 @@ SOCIALACCOUNT_PROVIDERS = {
         'METHOD': 'ouath2'  # instead of 'oauth2'
     }
 }
-
+# May do nothing
 PASSWORD_INPUT_RENDER_VALUE = '*'
 
+# NEED TO WORRY ABOUT MIGRATIONS EVERY TIME YOU CHANGE
 AUTH_USER_MODEL = 'memprot_project.UserProfile'
 
+
 ACCOUNT_SIGNUP_FORM_CLASS = 'memprot_project.form.UserProfileSignupForm'
+
+# Works with social login
 ACCOUNT_ADAPTER = 'memprot_project.adapter.AccountAdapter'
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
+
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
 LOGIN_ON_EMAIL_CONFIRMATION = True
 
 
+# Totally deprecated. maybe remove
 SOCIAL_AUTH_GITHUB_KEY = 'c1f8df1469375db82e49'
 SOCIAL_AUTH_GITHUB_SECRET = 'e9bcf59efaa6a6990abf654852f504dd8449cfe4'
 

@@ -18,6 +18,8 @@ from django.contrib import admin
 
 from . import views
 
+# A bunch of regular expressions
+# Probably needs cleanup
 urlpatterns = [
     url(r'^$', views.index, name="index"),
     url(r'^webform/', include('webform.urls')),
