@@ -46,3 +46,22 @@ class AccountAdapter(DefaultAccountAdapter):
             )
         print('new user signed up')
         return user
+
+    def save_social_user(self, request, sociallogin, form, commit=False):
+        data = form.cleaned_data
+        user = sociallogin.user
+        user.username = data['username']
+        user.institution = data['institution']
+        user.email = data['email']
+        user.website = data['website']
+
+        if commit:
+            sociallogin.save(request)
+
+        complete_signup(
+            request,
+            user,
+            None,
+            '/')
+        print('new social user signed up')
+        return user

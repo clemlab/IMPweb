@@ -129,3 +129,47 @@ class UserProfileSignupForm(forms.Form):
                     Submit('submit', 'Submit', css_class='button white')))
             )
 
+
+class SocialUserSignupForm(forms.Form):
+    username = forms.CharField(max_length=100)
+    email = forms.EmailField(label='Your academic email:', max_length=100)
+    institution = forms.CharField(label='What institution do you work for?', max_length=100)
+    website = forms.URLField(label='What is your personal website?', required=False)
+
+    # Crispy forms stuff
+    class Meta:
+        model = UserProfile
+        fields = (
+            'username',
+            'email',
+            'institution',
+            'website',
+            )
+
+
+    def save(self, request):
+        '''
+        Get the account adapter and save's the user
+        '''
+        adapter = get_adapter(request)
+        adapter.save_social_user(request, self.sociallogin, self, commit=True)
+        return
+
+
+    # Last bit of crispy stuff
+    def __init__(self, sociallogin=None, *args, **kwargs):
+        super(forms.Form, self).__init__(*args, **kwargs)
+        self.sociallogin = sociallogin
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Fieldset(
+                'Signup Form',
+                'username',
+                'email',
+                'institution',
+                'website',
+                ),
+            FormActions(
+                    ButtonHolder(
+                    Submit('submit', 'Submit', css_class='button white')))
+            )   

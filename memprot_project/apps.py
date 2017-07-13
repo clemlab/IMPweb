@@ -16,5 +16,5 @@ class ProjectConfig(AppConfig):
 		# HENCE THE PRINT STATEMENT VV DOWN HERE VV
 		for i in range(10): 
 			print('memprot_signals linked in')
-		user_logged_in.connect(murder_console)
+		user_signed_up.connect(murder_console)
 		email_confirmed.connect(murder_console)

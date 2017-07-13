@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^webform/', include('webform.urls')),
     url(r'^admin/', admin.site.urls, name='admin'),
     url(r'^signup$', views.site_signup, name='signup'),
+    #url(r'^accounts/social/signup/$', views.site_social_signup, name='social_signup'),
     url(r'^login/$', views.site_login, name='login'),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^logout/$', views.site_logout, name='logout'),

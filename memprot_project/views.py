@@ -35,6 +35,22 @@ def site_signup(request):
     # Renders the form
     return render(request, 'login_form.html', {'form': form})
 
+def site_social_signup(request):
+    # if this is a POST request, we need to process it
+    # the first part of the if statement is never called
+    # except after redirect
+    if request.method == 'POST':
+        form = UserProfileSignupForm(request.POST)
+        if form.is_valid():
+
+            # Calls the signup method from form.py/userprofilesignupform
+            form.signup(request, user)
+            return HttpResponseRedirect('/')
+    else:
+        # Makes a new form
+        form = SocialUserSignupForm()
+    # Renders the form
+    return render(request, 'login_form.html', {'form': form})
 
 # Handles the login form. Works essentially like signing up.
 def site_login(request):
