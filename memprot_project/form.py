@@ -107,8 +107,10 @@ class UserProfileSignupForm(forms.Form):
         Get the account adapter and save's the user
         '''
         adapter = get_adapter(request)
-        adapter.save_user(request, user, self, commit=True)
-        return
+        test = adapter.save_user(request, user, self, commit=True)
+        if not test:
+            return False
+        return True
 
     # Last bit of crispy stuff
     def __init__(self, *args, **kwargs):
@@ -136,6 +138,7 @@ class SocialUserSignupForm(forms.Form):
     institution = forms.CharField(label='What institution do you work for?', max_length=100)
     website = forms.URLField(label='What is your personal website?', required=False)
 
+
     # Crispy forms stuff
     class Meta:
         model = UserProfile
@@ -152,8 +155,10 @@ class SocialUserSignupForm(forms.Form):
         Get the account adapter and save's the user
         '''
         adapter = get_adapter(request)
-        adapter.save_social_user(request, self.sociallogin, self, commit=True)
-        return
+        success = adapter.save_social_user(request, self.sociallogin, self, commit=True)
+        if success:
+            return
+        return HttpResponse('Email not a valid academic email')
 
 
     # Last bit of crispy stuff

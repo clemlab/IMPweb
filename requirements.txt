@@ -17,3 +17,8 @@ django-allauth
 # data visualization
 numpy
 bokeh
+
+#Academic verification
+Flask==0.10.1
+PyTrie==0.2
+requests

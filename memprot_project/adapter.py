@@ -1,6 +1,6 @@
 from allauth.account.adapter import DefaultAccountAdapter
 from allauth.account.utils import complete_signup
-
+from .academic import acaemail_verify
 
 
 class AccountAdapter(DefaultAccountAdapter):
@@ -26,6 +26,8 @@ class AccountAdapter(DefaultAccountAdapter):
         user.username = data['username']
         user.institution = data['institution']
         user.email = data['email']
+        if not acaemail_verify(user.email.split('@')[1]):
+            return False
         user.website = data['website']
 
         # Sets the password 
@@ -53,6 +55,8 @@ class AccountAdapter(DefaultAccountAdapter):
         user.username = data['username']
         user.institution = data['institution']
         user.email = data['email']
+        if not acaemail_verify(user.email.split('@')[1]):
+            return False
         user.website = data['website']
 
         if commit:
