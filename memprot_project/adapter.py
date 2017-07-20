@@ -2,7 +2,6 @@ from allauth.account.adapter import DefaultAccountAdapter
 from allauth.account.utils import complete_signup
 from .academic import acaemail_verify
 
-
 class AccountAdapter(DefaultAccountAdapter):
     #taken from https://github.com/pennersr/django-allauth/blob/master/allauth/account/forms.py
     def clean_password2(self, data):
@@ -13,6 +12,7 @@ class AccountAdapter(DefaultAccountAdapter):
             if (data["password1"] != data["password2"]):
                 raise forms.ValidationError(("You must type the same password each time."))
             return data["password2"]
+
 
 
     # https://stackoverflow.com/questions/36488743/django-allauth-overriding-default-signup-form
@@ -55,8 +55,6 @@ class AccountAdapter(DefaultAccountAdapter):
         user.username = data['username']
         user.institution = data['institution']
         user.email = data['email']
-        if not acaemail_verify(user.email.split('@')[1]):
-            return False
         user.website = data['website']
 
         if commit:

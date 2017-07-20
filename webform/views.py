@@ -28,10 +28,6 @@ def thanks(request):
         if sanitized_input == ['']:
             return HttpResponse('Error in data given.')
         else:
-            # Commented out for testing purposes
-            #for element in sanitized_input:
-            #    if len(element) <= 30:
-            #        return HttpResponse('some input too short')
             user = auth.get_user(request)
             status = email_script(str(user), request.POST, sanitized_input)
             return render(request, 'results.html', {'data': status})

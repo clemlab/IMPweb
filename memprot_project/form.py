@@ -1,13 +1,16 @@
 from django import forms
+from django.shortcuts import render
 from inspect import getmembers, isfunction
-
+from django.http import HttpResponse
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Div, Submit, HTML, Button, Row, Field, Fieldset, ButtonHolder
 from crispy_forms.bootstrap import AppendedText, PrependedText, FormActions
+from django.forms import ValidationError
 
 from .models import UserProfile
 from .adapter import AccountAdapter
 from allauth.account.adapter import get_adapter
+from .academic import acaemail_verify
 
 
 # Taken from allauth.account.forms to avoid cicular import
@@ -75,10 +78,16 @@ class UserProfileSignupForm(forms.Form):
     # The various fields users must enter data into
     username = forms.CharField(max_length=100)
     institution = forms.CharField(label='What institution do you work for?', max_length=100)
-    email = forms.EmailField(label='Your email:', max_length=100)
+    email = forms.EmailField(label='Your academic email:', max_length=100)
     website = forms.URLField(label='What is your personal website?', required=False)
     password1 = PasswordField(label="Password")
     password2 = PasswordField(label="Password (again)")
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if not acaemail_verify(email.split('@')[1]):
+            raise forms.ValidationError(('Please enter a valid academic email!'), code='bad email')
+        return email
 
     # Crispy forms stuff
     class Meta:
@@ -138,6 +147,11 @@ class SocialUserSignupForm(forms.Form):
     institution = forms.CharField(label='What institution do you work for?', max_length=100)
     website = forms.URLField(label='What is your personal website?', required=False)
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if not acaemail_verify(email.split('@')[1]):
+            raise forms.ValidationError(('Please enter a valid academic email!'), code='bad email')
+        return email
 
     # Crispy forms stuff
     class Meta:
@@ -155,10 +169,9 @@ class SocialUserSignupForm(forms.Form):
         Get the account adapter and save's the user
         '''
         adapter = get_adapter(request)
-        success = adapter.save_social_user(request, self.sociallogin, self, commit=True)
-        if success:
-            return
-        return HttpResponse('Email not a valid academic email')
+        adapter.save_social_user(request, self.sociallogin, self, commit=True)
+        return
+
 
 
     # Last bit of crispy stuff
