@@ -16,6 +16,13 @@ def db_view(request, uuid=False):
     job = JobEntry.objects.get(job_id=uuid)
     return HttpResponse(job.output())
 
+
+def results_table(request):
+    table = JobEntry.objects.filter().order_by('date_completed')[:50]
+    results = [result.output for result in table]
+    return render(request, 'table.html', {'results': results})
+
+
 # Create your views here.
 def index(request):
     # test view

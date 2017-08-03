@@ -2,7 +2,8 @@ import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, User, UserManager
 from django import forms
-
+import datetime
+import django
 # All the possible functions for the drop-down menu
 # Order is (function name, shown name)
 # function name will be called later, so make sure it's correct
@@ -20,6 +21,8 @@ class JobEntry(models.Model):
     sanitized_input = models.CharField(max_length=3000) 
     is_public = models.BooleanField()
     results = models.CharField(max_length=300)
+    date_entered = models.DateTimeField(auto_now_add=True)
+    date_completed = models.DateTimeField(default=django.utils.timezone.now)
 
     def __str__(self):
         return self.job_name 
@@ -29,9 +32,12 @@ class JobEntry(models.Model):
         return reverse('db_view', args=[str(self.job_id)])
 
     def output(self):
-        return str(self.user_id) + '\n' + str(self.job_email) + '\n' + \
-            str(self.job_name) + '\n' + self.sanitized_input + \
-            str(self.is_public) + '\n' + str(self.results)
+        return {
+        'input': self.sanitized_input,
+        'output': self.results,
+        'begin': str(self.date_entered.date()),
+        'end': str(self.date_completed - self.date_entered)
+            }
 
 
 class SubmissionEntry(models.Model):

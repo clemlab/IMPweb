@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+
+<table>
+<tr>
+  <th>Protein Input</th>
+  <th>Results</th>
+  <th>Start Day</th>
+  <th>Time Taken</th>
+</tr>
+  {% for r in results %}
+    <tr>
+    	<td> {{ r.input }} </td>
+    	<td> {{ r.output }} </td>
+    	<td> {{ r.begin }} </td>
+    	<td> {{ r.end }} </td>
+    </tr>
+  {% endfor %}
+</table>
+
+{% endblock %}

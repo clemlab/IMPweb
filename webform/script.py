@@ -31,6 +31,8 @@ def email_script(user, POST, sanitized):
     return 'Your job will be processed shortly'
 
 
+
+
 # WIP script to sanitize inputs
 def saniscript(POST, FILES):
     sanitized = []

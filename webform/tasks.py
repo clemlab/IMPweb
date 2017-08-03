@@ -1,6 +1,7 @@
 import os
 import time
 import tempfile
+import datetime
 
 from contextlib import contextmanager
 
@@ -48,6 +49,7 @@ def calculate_score(test_list, test_subject, fun, sanitized, jobid):
         
         tf.close()
         job.results = str(results)
+        job.date_completed = datetime.datetime.now()
         job.save()
         email.attach_file(tf.name)
 
