@@ -10,7 +10,7 @@ from django.core.mail import EmailMessage
 
 from django_rq import job
 from .models import JobEntry
-
+from django.utils import timezone
 
 @contextmanager
 def NamedTemporaryFile(*args, **kwargs):
@@ -31,7 +31,7 @@ def calculate_score(test_list, test_subject, fun, sanitized, jobid):
     sender = settings.EMAIL_HOST_USER
 
     # delay for testing django_rq
-    #time.sleep(10)
+    time.sleep(20)
 
     # set up results notification
     email = EmailMessage(test_subject + ' test results',
@@ -49,7 +49,7 @@ def calculate_score(test_list, test_subject, fun, sanitized, jobid):
         
         tf.close()
         job.results = str(results)
-        job.date_completed = datetime.datetime.now()
+        job.date_completed = timezone.now()
         job.save()
         email.attach_file(tf.name)
 

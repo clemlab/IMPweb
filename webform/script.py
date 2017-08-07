@@ -3,6 +3,7 @@
 from . import funfile
 from .tasks import calculate_score
 from .models import JobEntry
+from django.utils import timezone
 
 # Extracts information from a post and sanitized input
 def email_script(user, POST, sanitized):
@@ -18,7 +19,6 @@ def email_script(user, POST, sanitized):
         test_fun = funfile.spam
     else:
         raise ValueError("method not found: ", POST['method'])
-
     job = JobEntry()
     job.user_id = user
     job.job_name = test_subject

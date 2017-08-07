@@ -36,7 +36,8 @@ class JobEntry(models.Model):
         'input': self.sanitized_input,
         'output': self.results,
         'begin': str(self.date_entered.date()),
-        'end': str(self.date_completed - self.date_entered)
+        'end': str(self.date_completed - self.date_entered),
+        'url': str(self.get_absolute_url())
             }
 
 
