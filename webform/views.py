@@ -14,7 +14,8 @@ def db_view(request, uuid=False):
         path = request.path_info
         uuid = path[16:-1]
     job = JobEntry.objects.get(job_id=uuid)
-    return HttpResponse(job.output())
+    results = job.output
+    return render(request, 'results_template.html', {'results': results})
 
 
 def results_table(request):
