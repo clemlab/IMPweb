@@ -43,7 +43,6 @@ def thanks(request):
     else:
         return HttpResponseRedirect('/webform/')
 
-@verified_email_required
 def get_name(request):
     # if this is a POST request, we need to process it
     # the first part of the if statement is never called
