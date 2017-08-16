@@ -3,11 +3,21 @@ from django.http import HttpResponseRedirect, HttpResponse
 import django.contrib.auth as auth
 from .form import SubmissionForm
 
-from .script import email_script, saniscript
+from .script import email_script, saniscript, button_script
 
-from .models import SubmissionEntry, JobEntry
+from .models import SubmissionEntry, JobEntry, JobBatch
 
 from allauth.account.decorators import verified_email_required
+
+def job_view(request, uuid=False):
+    if not uuid:
+        return HttpResponse("something has gone right or wrong or something")
+    job = JobBatch.objects.get(batch_id=uuid)
+    print(job)
+    table = JobEntry.objects.filter(batch=job).order_by('date_completed')
+    results = [result.output for result in table]
+    return render(request, 'batch_table.html', {'results': results, 'buttons': button_script('none')})
+
 
 def db_view(request, uuid=False):
     if not uuid:
@@ -15,13 +25,13 @@ def db_view(request, uuid=False):
         uuid = path[16:-1]
     job = JobEntry.objects.get(job_id=uuid)
     results = job.output
-    return render(request, 'results_template.html', {'results': results})
+    return render(request, 'results_template.html', {'results': results, 'buttons': button_script('none')})
 
 
 def results_table(request):
-    table = JobEntry.objects.filter().order_by('date_completed')[:50]
+    table = JobBatch.objects.filter().order_by('date_entered')[:50]
     results = [result.output for result in table]
-    return render(request, 'table.html', {'results': results})
+    return render(request, 'recent_table.html', {'batches': results, 'buttons': button_script('recent')})
 
 
 # Create your views here.
@@ -53,7 +63,8 @@ def get_name(request):
     else:
         form = SubmissionForm()
 
-    return render(request, 'basic_input.html', {'form': form})
+    return render(request, 'basic_input.html', {'form': form,
+                   'buttons': button_script('sequence')})
 
 
 def profile(request):

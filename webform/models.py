@@ -13,19 +13,42 @@ funs = [
     ('spam', 'spam'),
 ]
 
+class JobBatch(models.Model):
+    batch_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    job_name = models.CharField(max_length=50)
+    is_public = models.BooleanField()
+    job_email = models.EmailField(max_length=100)
+    user_id = models.EmailField(max_length=100)
+    batch_size = models.IntegerField(default=0)
+    date_entered = models.DateTimeField(auto_now_add=True)
+    finished = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.job_name
+
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('job_view', args=[str(self.batch_id)])
+
+    def output(self):
+        return {
+        'size': str(self.batch_size),
+        'name': self.job_name,
+        'date': str(self.date_entered.date()),
+        'url': str(self.get_absolute_url()),
+        }
+
 class JobEntry(models.Model):
     job_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    user_id = models.EmailField(max_length=100)
-    job_email = models.EmailField(max_length=100)
-    job_name = models.CharField(max_length=50)
+    batch = models.ForeignKey(JobBatch, on_delete=models.CASCADE)
+    batch_no = models.IntegerField(default=-1)
     sanitized_input = models.CharField(max_length=3000) 
-    is_public = models.BooleanField()
-    results = models.CharField(max_length=300)
-    date_entered = models.DateTimeField(auto_now_add=True)
+    results = models.CharField(max_length=300, default='unfinished')
+    date_started = models.DateTimeField(default=django.utils.timezone.now)
     date_completed = models.DateTimeField(default=django.utils.timezone.now)
 
     def __str__(self):
-        return self.job_name 
+        return str(self.batch) + ' ' + str(self.batch_no)
 
     def get_absolute_url(self):
         from django.urls import reverse
@@ -33,10 +56,10 @@ class JobEntry(models.Model):
 
     def output(self):
         return {
-        'input': self.sanitized_input,
+        'input': self.sanitized_input[:20],
         'output': self.results,
-        'begin': str(self.date_entered.date()),
-        'end': str(self.date_completed - self.date_entered),
+        'begin': str(self.batch.date_entered.date()),
+        'end': str(self.date_completed - self.date_started),
         'url': str(self.get_absolute_url())
             }
 

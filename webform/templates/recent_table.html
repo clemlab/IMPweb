@@ -1,0 +1,30 @@
+{% extends 'base_input.html' %}
+
+{% block body_block %}
+
+
+<!-- Latest compiled and minified CSS -->
+
+<table id="myTable" class="myTable">
+<tr>
+  <th>Job Name</th>
+  <th>Job size</th>
+  <th>Date Submitted</th>
+</tr>
+  {% for r in batches %}
+    <tr>
+    	<td> <a href="{{ r.url }}">{{ r.name }}</a> </td>
+    	<td> {{ r.size }} </td>
+    	<td> {{ r.date }} </td>
+    </tr>
+  {% endfor %}
+</table>
+
+
+<script>
+  $(document).ready(function(){
+      $('#myTable').DataTable();
+  });
+</script>
+
+{% endblock %}

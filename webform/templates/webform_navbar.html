@@ -3,10 +3,10 @@
 
   <nav class="navbar navbar-default">
     <div class="btn-group btn-lg" role="group" aria-label="...">
-      <button type="button" class="btn btn-primary" href="#" role="button">Predict Sequences</a>
-      <button type="button" class="btn btn-default" href="#" role="button">Predict Families</a>
-      <button type="button" class="btn btn-default" href="#" role="button">Predict Variants</a>
-      <button type="button" class="btn btn-default" href="#" role="button">View Recent Results</a>
+      <a type="button" class="{{ buttons.sequence }}" href={% url 'webform' %} role="button">Predict Sequences</a>
+      <a type="button" class="{{ buttons.families }}" href="#" role="button">Predict Families</a>
+      <a type="button" class="{{ buttons.variants }}" href="#" role="button">Predict Variants</a>
+      <a type="button" class="{{ buttons.recent }}" href="{% url 'recent_results' %}" role="button">View Recent Results</a>
     </div>
   </nav>
 
