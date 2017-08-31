@@ -9,17 +9,19 @@ from .models import SubmissionEntry, JobEntry, JobBatch
 
 from allauth.account.decorators import verified_email_required
 
-def job_view(request, uuid=False):
+def batch_view(request, uuid=False):
     if not uuid:
         return HttpResponse("something has gone right or wrong or something")
     job = JobBatch.objects.get(batch_id=uuid)
     print(job)
     table = JobEntry.objects.filter(batch=job).order_by('date_completed')
+    if len(table) == 1:
+        return HttpResponseRedirect(table[0].get_absolute_url())
     results = [result.output for result in table]
     return render(request, 'batch_table.html', {'results': results, 'buttons': button_script('none')})
 
 
-def db_view(request, uuid=False):
+def job_view(request, uuid=False):
     if not uuid:
         path = request.path_info
         uuid = path[16:-1]
@@ -28,7 +30,7 @@ def db_view(request, uuid=False):
     return render(request, 'results_template.html', {'results': results, 'buttons': button_script('none')})
 
 
-def results_table(request):
+def recent_table(request):
     table = JobBatch.objects.filter().order_by('date_entered')[:50]
     results = [result.output for result in table]
     return render(request, 'recent_table.html', {'batches': results, 'buttons': button_script('recent')})
@@ -61,7 +63,11 @@ def get_name(request):
         if form.is_valid():
             return HttpResponseRedirect('/webform/thanks/')
     else:
-        form = SubmissionForm()
+        user = auth.get_user(request)
+        if user.is_authenticated:
+            form = SubmissionForm(initial={'your_email': user.email})
+        else:
+            form = SubmissionForm()
 
     return render(request, 'basic_input.html', {'form': form,
                    'buttons': button_script('sequence')})
