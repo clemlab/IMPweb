@@ -1,6 +1,10 @@
 django
 biopython
 
+# database
+mysqlclient
+dj-database-url
+
 #nice forms
 django-crispy-forms
 
