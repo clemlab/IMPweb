@@ -3,6 +3,7 @@ biopython
 
 # heroku
 gunicorn
+whitenoise
 
 # database
 mysqlclient
