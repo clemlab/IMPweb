@@ -27,7 +27,8 @@ SECRET_KEY = '&u0=z#6!8@44@kgm3ce$bu2+wt^1%y!(ljsrnn6gqqwxz9lu4g'
 DEBUG = True
 
 ALLOWED_HOSTS = ('127.0.0.1', 'localhost',
-                 '192.168.157.149', '192.168.157.*')
+                 '192.168.157.149', '192.168.157.*',
+                 'impweb.herokuapp.com')
 
 
 #CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
