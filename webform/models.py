@@ -40,7 +40,7 @@ class JobBatch(models.Model):
 
 class JobEntry(models.Model):
     job_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    batch = models.ForeignKey(JobBatch, on_delete=models.CASCADE)
+    batch = models.ForeignKey(JobBatch, on_delete=models.CASCADE, null=True)
     batch_no = models.IntegerField(default=-1)
     sanitized_input = models.CharField(max_length=3000) 
     results = models.CharField(max_length=300, default='unfinished')
