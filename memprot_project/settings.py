@@ -211,20 +211,20 @@ LOGIN_ON_EMAIL_CONFIRMATION = True
 
 RQ_QUEUES = {
     'default': {
-        'HOST': 'localhost',
-        'PORT': 6379,
+        'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'),
         'DB': 0,
         'DEFAULT_TIMEOUT': 360,
+        'PASSWORD': '08448b697de4895ceaba189212b4da66'
     },
-    'high': {
-        'HOST': 'localhost',
-        'PORT': 6379,
+        'high': {
+        'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'),
         'DB': 0,
-        'DEFAULT_TIMEOUT': 500,
+        'DEFAULT_TIMEOUT': 360,
+        'PASSWORD': '08448b697de4895ceaba189212b4da66'
+    },    'low': {
+        'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'),
+        'DB': 0,
+        'DEFAULT_TIMEOUT': 360,
+        'PASSWORD': '08448b697de4895ceaba189212b4da66'
     },
-    'low': {
-        'HOST': 'localhost',
-        'PORT': 6379,
-        'DB': 0,
-    }
 }
