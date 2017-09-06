@@ -27,7 +27,6 @@ SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 DEBUG = True
 
 ALLOWED_HOSTS = ('127.0.0.1', 'localhost',
-                 '192.168.157.149', '192.168.157.*',
                  'impweb.herokuapp.com')
 
 
@@ -91,6 +90,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.request',
+                'memprot_project.context_processors.export_environ',
             ],
         },
     },
@@ -102,13 +102,10 @@ WSGI_APPLICATION = 'memprot_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 DATABASES = {'default': dj_database_url.config(conn_max_age=500)}
-print(DATABASES)
-
 DATABASES['default']['OPTIONS'] =  {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
             'ssl': {'ca':'config/rds-combined-ca-bundle.pem'}
             }
-print(DATABASES)
 
 
 # Password validation
