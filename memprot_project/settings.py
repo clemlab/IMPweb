@@ -21,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&u0=z#6!8@44@kgm3ce$bu2+wt^1%y!(ljsrnn6gqqwxz9lu4g'
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -203,28 +203,23 @@ ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 3
 LOGIN_ON_EMAIL_CONFIRMATION = True
 
 
-
-
-
-
 # Redis Queues
-
 RQ_QUEUES = {
     'default': {
         'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'),
         'DB': 0,
         'DEFAULT_TIMEOUT': 360,
-        'PASSWORD': '08448b697de4895ceaba189212b4da66'
+        'PASSWORD': os.environ['REDISTOGO_PASSWORD']
     },
         'high': {
         'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'),
         'DB': 0,
         'DEFAULT_TIMEOUT': 360,
-        'PASSWORD': '08448b697de4895ceaba189212b4da66'
+        'PASSWORD': os.environ['REDISTOGO_PASSWORD']
     },    'low': {
         'URL': os.getenv('REDISTOGO_URL', 'redis://localhost:6379/0'),
         'DB': 0,
         'DEFAULT_TIMEOUT': 360,
-        'PASSWORD': '08448b697de4895ceaba189212b4da66'
+        'PASSWORD': os.environ['REDISTOGO_PASSWORD']
     },
 }
