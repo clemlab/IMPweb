@@ -33,14 +33,8 @@ ALLOWED_HOSTS = ('127.0.0.1', 'localhost',
 #CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'
 
 # Email settings
-# FIGURE OUT SOME WAY TO TAKE OUT PLAINTEXT PASS
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'cnelson.django.test@gmail.com'
-EMAIL_HOST_PASSWORD = 'Lazenby0'
-EMAIL_PORT = 465
-EMAIL_USE_SSL = True
-
-#EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = "sgbackend.SendGridBackend"
+SENDGRID_API_KEY = os.environ['SENDGRID_API_KEY']
 
 # Application definition
 INSTALLED_APPS = (

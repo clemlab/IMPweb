@@ -21,6 +21,8 @@ pyjwkest
 bcrypt
 django-allauth
 
+# email sending
+sendgrid-django
 
 # data visualization
 numpy
