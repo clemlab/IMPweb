@@ -6,7 +6,7 @@ import datetime
 from contextlib import contextmanager
 
 from django.conf import settings
-from django.core.mail import EmailMessage
+from django.core.mail import send_mail, EmailMessage, EmailMultiAlternatives
 
 from django_rq import job
 from .models import JobEntry, JobBatch
@@ -26,9 +26,6 @@ def NamedTemporaryFile(*args, **kwargs):
 @job
 def calculate_score(test_list, test_subject, fun, sanitized, jobid):
     batch = JobBatch.objects.get(batch_id=jobid)
-    body = 'This email is to confirm a successful test \n \
-    Your job url is: http://127.0.0.1:8000'  + str(batch.get_absolute_url())
-    sender = settings.EMAIL_HOST_USER
 
     results = []
     for index, task in enumerate(sanitized):
@@ -43,23 +40,22 @@ def calculate_score(test_list, test_subject, fun, sanitized, jobid):
         job.save()
         results.append(task + ': ' + job.results)
 
-    # set up results notification
-    email = EmailMessage(test_subject + ' test results',
-                         body,
-                         sender,
-                         test_list)
+    mail = EmailMultiAlternatives(
+      subject="Your Subject",
+      body=('This email is to confirm a successful test\n'
+            'Your job url is: http://127.0.0.1:8000') + str(batch.get_absolute_url()),
+      from_email="Shyam Saladi <saladi@caltech.edu>",
+      to=test_list,
+      reply_to=["saladi@caltech.edu"]
+    )
+    # Add template
+    # mail.template_id = 'YOUR TEMPLATE ID FROM SENDGRID ADMIN'
 
-    
-    with NamedTemporaryFile('w', suffix='.txt') as tf:
-        for result in results:
-            # Evaluate the function chosen by the user with the given arg
-            print(result, file=tf)
-        
-        tf.close()
-        email.attach_file(tf.name)
+    # Replace substitutions in sendgrid template
+    # mail.substitutions = {'%username%': 'elbuo8'}
 
-        email.send(fail_silently=False)
+    # Attach file
+    mail.attach_alternative("\n".join(results), "text/plain")
 
-        
-
+    mail.send(fail_silently=False)
     return 'your email has been sent'
