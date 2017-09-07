@@ -8,7 +8,10 @@ from .models import UserProfile
 #     return HttpResponseRedirect('/form/')
 
 # Basic dumb return of html page
-def index(request):
+def static_views(request):
+    for page in ['publications', 'team', 'contact']:
+        if page in request.path:
+            return render(request, page + '.html')
     return render(request, 'index.html')
 
 # Next step up the food chain. Logs out the user and redirects to index

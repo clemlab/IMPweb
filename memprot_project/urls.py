@@ -19,14 +19,14 @@ from django.contrib import admin
 from . import views
 
 # A bunch of regular expressions
-# Probably needs cleanup
 urlpatterns = [
-    url(r'^$', views.index, name="index"),
+    url(r'^index/?', views.static_views, name="index"),
     url(r'^webform/', include('webform.urls')),
-    url(r'^admin/', admin.site.urls, name='admin'),
-    url(r'^signup$', views.site_signup, name='signup'),
-    url(r'^login/$', views.site_login, name='login'),
+    url(r'^admin/?', admin.site.urls, name='admin'),
+    url(r'^signup/?$', views.site_signup, name='signup'),
+    url(r'^login/?$', views.site_login, name='login'),
     url(r'^accounts/', include('allauth.urls')),
-    url(r'^logout/$', views.site_logout, name='logout'),
-    url(r'^django-rq/', include('django_rq.urls')),
+    url(r'^logout/?$', views.site_logout, name='logout'),
+    url(r'^django-rq/?', include('django_rq.urls')),
+    url(r'.*', views.static_views, name="allelse")
 ]
