@@ -2,6 +2,8 @@ import requests
 
 import json
 
+from .uni_app import search
+
 def domain_smush(dom):
 	data = ''
 	for i in dom:
@@ -20,9 +22,7 @@ def verify_academy(domain):
 	'''
 	make a query to academic domains to see if the provided email is valid
 	'''
-	url = "http://127.0.0.1:5000/search?domain=" + domain
-	response = requests.get(url)
-	data = json.loads(response.content)
-	return len(data)
+	response = search(domain=domain)
+	return response
 
 
