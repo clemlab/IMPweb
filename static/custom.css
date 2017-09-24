@@ -1,10 +1,40 @@
 th, td {
-    padding: 5px;
+  padding: 5px;
 }
 
-.col-centered{
-    float: none;
-    margin: 0 auto;
-    border-radius:5px;
-    margin: 5%;
+.col-centered {
+  float: none;
+  margin: 0 auto;
+  border-radius:5px;
+  margin: 5%;
+}
+
+
+.team-row {
+  text-align:center;
+}
+
+.team-col {
+  margin: 0 auto;
+  border-radius: 5px;
+  background: white;
+  border-radius: 5px;
+  margin: 3%;
+  display:inline-block;
+  float:none;
+  text-align:left;
+}
+
+.team-img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5%;
+  width: 100%;
+  max-width: 300px;
+}
+
+.content {
+  background-color: #eee;
+  border-radius:5px;
 }
