@@ -1,9 +1,6 @@
 {% extends 'base_input.html' %}
 
-{% block body_block %}
-
-
-
+{% block webform_block %}
 <form action="thanks" method="post" enctype="multipart/form-data">
     {% if user.is_authenticated %}
     {% csrf_token %}
@@ -18,5 +15,3 @@
 
 <!-- see here for custom styling http://stackoverflow.com/questions/5827590/css-styling-in-django-forms -->
 <!-- embedding bokeh plots http://stackoverflow.com/a/29524050/2320823 -->
-
-
