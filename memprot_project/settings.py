@@ -182,6 +182,8 @@ ACCOUNT_SIGNUP_FORM_CLASS = 'memprot_project.form.UserProfileSignupForm'
 SOCIALACCOUNT_AUTO_SIGNUP = False
 SOCIALACCOUNT_FORMS = {'signup': 'memprot_project.form.SocialUserSignupForm'}
 
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
 # Works with social login
 ACCOUNT_ADAPTER = 'memprot_project.adapter.AccountAdapter'
 ACCOUNT_USER_MODEL_USERNAME_FIELD = 'username'
