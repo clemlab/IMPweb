@@ -1,10 +1,23 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-  <div class="container theme-showcase" role="main">
-    {% include "webform_navbar.html" %}
-    {% block button_block %}{% endblock %}
 
-  {% block webform_block %}{% endblock %}
+<ul class="nav nav-tabs nav-justified">
+  <li role="presentation"><a href="{% url 'webform' %}">Predict Sequences</a></li>
+  <li role="presentation" class="disabled"><a href="#">Predict Families</a></li>
+  <li role="presentation" class="disabled"><a href="#">Predict Variants</a></li>
+  <li role="presentation"><a href="{% url 'recent_results' %}">View Recent Results</a></li>
+</ul>
 
+<br>
+
+<div class="jumbotron">
+  <div class="row">
+    <div class="col-md-12">
+
+{% block webform_block %}{% endblock %}
+
+    </div>
+  </div>
+</div>
 {% endblock %}
