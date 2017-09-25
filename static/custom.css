@@ -2,6 +2,10 @@ th, td {
   padding: 5px;
 }
 
+body {
+  padding-top: 40px;
+}
+
 .col-centered {
   float: none;
   margin: 0 auto;
@@ -9,6 +13,16 @@ th, td {
   margin: 5%;
 }
 
+.pub-img {
+  float:right;
+  margin:2%;
+  width:350px;
+}
+
+.custom-white-panel {
+  background:white;
+  border-radius:5px;
+}
 
 .team-row {
   text-align:center;
