@@ -51,14 +51,16 @@ def load_data():
     response = requests.get("https://raw.githubusercontent.com/Hipo/university-domains-list/master/world_universities_and_domains.json")
     university_data = response.json()
     for i in university_data:
-        university_country_index[i["country"].lower()].append(i)
+        #university_country_index[i["country"].lower()].append(i)
         [university_domain_index[j.lower()].append(i) for j in i["domains"]]
-        university_name_index[i['name'].lower()] = i
+        #university_name_index[i['name'].lower()] = i
+        '''
         splitted = i['name'].split(" ")
         if len(splitted) > 1:
             for splitted_name in splitted[1:]:
                 university_name_index[splitted_name.lower() + str(uuid.uuid1())] = i
-    prefix_tree = Trie(**university_name_index)
+        '''
+    #prefix_tree = Trie(**university_name_index)
 
     uni_data_loaded = True
 
