@@ -9,8 +9,7 @@ from django.utils import timezone
 def email_script(user, POST, sanitized):
     test_list = [POST['your_email']]
     test_subject = POST['job_name']
-    public = POST.get('display_mode', False)
-    public = (public == 'On')
+    public = POST['display_mode']
     if POST['method'] == 'length':
         test_fun = funfile.length
     elif POST['method'] == 'rev':
