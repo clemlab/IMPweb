@@ -16,7 +16,7 @@ funs = [
 class JobBatch(models.Model):
     batch_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     job_name = models.CharField(max_length=50)
-    is_public = models.BooleanField()
+    is_public = models.BooleanField(default=True)
     job_email = models.EmailField(max_length=100)
     user_id = models.EmailField(max_length=100)
     batch_size = models.IntegerField(default=0)
