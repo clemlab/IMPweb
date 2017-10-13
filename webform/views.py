@@ -29,9 +29,14 @@ def job_view(request, uuid=False):
     results = job.output
     return render(request, 'results_template.html', {'results': results, 'buttons': button_script('none')})
 
+def user_view(request):
+    table = JobBatch.objects.filter(user_id=request.user.email).order_by('date_entered')[:50][::-1]
+    results = [result.output for result in table]
+    return render(request, 'recent_table.html', {'batches': results, 'buttons': button_script('none')})    
+
 
 def recent_table(request):
-    table = JobBatch.objects.filter().order_by('date_entered')[:50]
+    table = JobBatch.objects.filter().order_by('date_entered')[:50][::-1]
     results = [result.output for result in table]
     return render(request, 'recent_table.html', {'batches': results, 'buttons': button_script('recent')})
 

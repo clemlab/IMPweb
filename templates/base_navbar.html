@@ -25,6 +25,7 @@
         <li class="dropdown">
           <button href="#" class="btn navbar-btn btn-default dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ user.username }}<span class="caret"></span></button>
           <ul class="dropdown-menu">
+            <li><a href="{% url 'webform/user_view' %}">User Results</a></li>
             <li><a href="{% url 'logout' %}">User Settings</a></li>
             <li><a href="{% url 'logout' %}">Logout</a></li>
           </ul>
