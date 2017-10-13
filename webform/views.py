@@ -70,7 +70,7 @@ def get_name(request):
     else:
         user = auth.get_user(request)
         if user.is_authenticated:
-            form = SubmissionForm(initial={'your_email': user.email, 'is_public': True})
+            form = SubmissionForm(initial={'your_email': user.email, 'display_mode': True})
         else:
             form = SubmissionForm()
 
