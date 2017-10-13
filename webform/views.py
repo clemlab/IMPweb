@@ -36,7 +36,7 @@ def user_view(request):
 
 
 def recent_table(request):
-    table = JobBatch.objects.filter().order_by('date_entered')[:50][::-1]
+    table = JobBatch.objects.filter(is_public=True).order_by('date_entered')[:50][::-1]
     results = [result.output for result in table]
     return render(request, 'recent_table.html', {'batches': results, 'buttons': button_script('recent')})
 
@@ -70,7 +70,7 @@ def get_name(request):
     else:
         user = auth.get_user(request)
         if user.is_authenticated:
-            form = SubmissionForm(initial={'your_email': user.email})
+            form = SubmissionForm(initial={'your_email': user.email, 'is_public': True})
         else:
             form = SubmissionForm()
 
