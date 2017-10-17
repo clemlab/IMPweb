@@ -13,7 +13,7 @@ from .models import SubmissionEntry, funs
 class SubmissionForm(forms.ModelForm):
     your_email = forms.EmailField(label='Your email:', max_length=100)
     job_name = forms.CharField(label='Job Name', max_length=50)
-    protein = forms.CharField(widget=forms.Textarea, required=False)
+    protein = forms.CharField(widget=forms.Textarea, required=False, max_length=300)
     protein_file = forms.FileField(required=False)
     method = forms.ChoiceField(choices=funs, required=True)
     display_mode = forms.BooleanField(label='Display publically?', required=False)    

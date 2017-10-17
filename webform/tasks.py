@@ -43,7 +43,7 @@ def calculate_score(test_list, test_subject, fun, sanitized, jobid):
     mail = EmailMultiAlternatives(
       subject="Your Subject",
       body=('This email is to confirm a successful test\n'
-            'Your job url is: http://127.0.0.1:8000') + str(batch.get_absolute_url()),
+            'Your job url is: http://impweb.herokuapp.com') + str(batch.get_absolute_url()),
       from_email="Shyam Saladi <saladi@caltech.edu>",
       to=test_list,
       reply_to=["saladi@caltech.edu"]

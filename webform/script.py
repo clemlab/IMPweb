@@ -50,7 +50,7 @@ def saniscript(POST, FILES):
         attachment = FILES.get('protein_file', False)
         for line in attachment:
             try:
-                sanitized.append(str(line))
+                sanitized.append(str(line)[2:-2][:30])
                 # sanitized.append(curate_sequence(str(line)))
             except TypeError:
                 return ['']
@@ -59,6 +59,10 @@ def saniscript(POST, FILES):
         else:
             return ['']
     else:
-        sequence = POST['protein'].split('\n')
+        try:
+            sequence = POST['protein'].split('\n')
+            [sanitized.append(str(line)[:30] for line in sequence[:10])]
+        except: TypeError:
+            return ['']
         # sequence = ml_utils.curate_sequence(sequence)
         return sequence
