@@ -62,7 +62,7 @@ def saniscript(POST, FILES):
         try:
             sequence = POST['protein'].split('\n')
             [sanitized.append(str(line)[:30] for line in sequence[:10])]
-        except: TypeError:
+        except TypeError:
             return ['']
         # sequence = ml_utils.curate_sequence(sequence)
         return sequence
