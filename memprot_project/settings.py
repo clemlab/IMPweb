@@ -27,7 +27,7 @@ SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 DEBUG = True
 
 ALLOWED_HOSTS = ('127.0.0.1', 'localhost',
-                 'impweb.herokuapp.com')
+                 'impweb.herokuapp.com', '0.0.0.0')
 
 
 #CELERY_RESULT_BACKEND = 'djcelery.backends.database:DatabaseBackend'

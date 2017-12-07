@@ -35,7 +35,6 @@ def calculate_score(test_list, test_subject, fun, sanitized, jobid):
         job.sanitized_input = task
         job.results = str(fun(task))
         # delay for testing django_rq
-        time.sleep(4)
         job.date_completed = timezone.now()
         job.save()
         results.append(task + ': ' + job.results)

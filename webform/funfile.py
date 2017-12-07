@@ -2,7 +2,7 @@
 from time import sleep
 
 def length(stuff):
-	return len(stuff)
+	return len(stuff) - 1
 
 def rev(stuff):
 	return stuff[::-1]

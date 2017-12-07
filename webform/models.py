@@ -56,7 +56,7 @@ class JobEntry(models.Model):
 
     def output(self):
         return {
-        'input': self.sanitized_input[:20],
+        'input': self.sanitized_input[:-1][:20],
         'output': self.results,
         'begin': str(self.batch.date_entered.date()),
         'end': str(self.date_completed - self.date_started),

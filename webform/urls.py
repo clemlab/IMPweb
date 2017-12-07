@@ -22,6 +22,7 @@ urlpatterns = [
     url(r'^job=(?P<uuid>[^/]+)/$', views.batch_view, name='job_view'),
     url(r'^result=(?P<uuid>[^/]+)/$', views.job_view, name='db_view'),
     url(r'^user_results/$', views.user_view, name='user_view'),
-    url(r'^recent_results$', views.recent_table, name='recent_results')
+    url(r'^recent_results$', views.recent_table, name='recent_results'),
+    url(r'^user_download/$', views.download_results, name='user_download'),
     # url(r'^', views.formredirect, name='redirect'),
 ]

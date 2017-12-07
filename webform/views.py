@@ -9,6 +9,8 @@ from .models import SubmissionEntry, JobEntry, JobBatch
 
 from allauth.account.decorators import verified_email_required
 
+import csv
+
 def batch_view(request, uuid=False):
     if not uuid:
         return HttpResponse("something has gone right or wrong or something")
@@ -32,7 +34,7 @@ def job_view(request, uuid=False):
 def user_view(request):
     table = JobBatch.objects.filter(user_id=str(auth.get_user(request))).order_by('date_entered')[:50][::-1]
     results = [result.output for result in table]
-    return render(request, 'recent_table.html', {'batches': results, 'buttons': button_script('none')})    
+    return render(request, 'user_table.html', {'batches': results, 'buttons': button_script('none')})    
 
 
 def recent_table(request):
@@ -76,6 +78,20 @@ def get_name(request):
 
     return render(request, 'basic_input.html', {'form': form,
                    'buttons': button_script('sequence')})
+
+def download_results(request):
+    table = JobBatch.objects.filter(user_id=str(auth.get_user(request))).order_by('date_entered')[::-1]
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="results.csv"'
+    writer = csv.writer(response)
+    for batch in table:
+        batchname = [batch.output()['name']]
+        entries = JobEntry.objects.filter(batch=batch).order_by('date_completed')
+        for entry in entries:
+            info = entry.output()
+            writer.writerow(batchname + [info['input']] + [info['output']] + [info['begin']] + [info['end']])
+    return response
+
 
 
 def profile(request):
