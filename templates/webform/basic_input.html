@@ -1,0 +1,71 @@
+{% extends 'webform/base.html' %}
+
+{% block webform_block %}
+
+<form action="/webform/basic" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+    <fieldset>
+      <legend>Submission Form</legend>
+      <div id="div_email" class="form-group">
+        <label for="email" class="control-label requiredField">Your email (if not an academic domain, your job will be held for approval):
+          <span class="asteriskField">*</span>
+        </label>
+        <div class="controls ">
+          <input type="email" name="email" maxlength="100" class="emailinput form-control" required="" id="email" placeholder="Please enter an email address" value="{{ email }}"></div>
+      </div>
+      <div id="div_job_name" class="form-group">
+        <label for="job_name" class="control-label  requiredField">
+          Job Name
+          <span class="asteriskField">*</span>
+        </label>
+        <div class="controls ">
+          <input type="text" name="job_name" maxlength="50" class="textinput textInput form-control" required="" id="job_name"> </div>
+      </div>
+      <div id="div_sequence" class="form-group">
+        <label for="sequence" class="control-label">
+          Sequence (If protein, we will find naturally-occuring gene sequences) [FASTA-formatted, if multiple]
+        </label>
+        <div class="controls ">
+          <textarea name="sequence" cols="40" rows="10" class="textarea form-control" id="id_sequence"></textarea> </div>
+      </div>
+      <div id="div_id_sequence_file" class="form-group">
+        <label for="id_sequence_file" class="control-label ">
+          FASTA-formatted sequence file
+        </label>
+        <div class="controls ">
+          <input type="file" class="clearablefileinput" id="sequencefile" name="sequencefile"> </div>
+      </div>
+      <div id="div_method" class="form-group">
+        <label for="method" class="control-label  requiredField">
+          Method
+          <span class="asteriskField">*</span>
+        </label>
+        <div class="controls ">
+          <select class="select form-control" id="method" name="method">
+            <option value="improve_2018">IMProve (Saladi et al., JBC, 2018)</option>    
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <div id="div_keeppublic" class="checkbox">
+          <label for="keeppublic" class="">
+            <input type="checkbox" name="keeppublic" class="checkboxinput" id="keeppublic" checked> Display publically? (Public jobs complete more quickly!)
+          </label>
+        </div>
+      </div>
+    </fieldset>
+    
+    <div class="form-group">
+      <div class="controls ">
+        <div class="buttonHolder">
+          <input type="submit" name="submit" value="Submit" class="btn btn-primary button white" id="submit-id-submit">
+    
+        </div>
+      </div>
+    </div>
+</form>
+{% endblock %}
+
+
+<!-- embedding bokeh plots http://stackoverflow.com/a/29524050/2320823 -->

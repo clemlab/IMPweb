@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+    {% include "base/head.html" %}
+    {% block head_block %}{% endblock %}
+    </head>
+
+    <body>
+
+      {% include "base/navbar.html" %}
+      {% block navbar_block %}{% endblock %}
+
+      <div class="container theme-showcase" role="main">
+        <div class="row">
+          <div class="col">
+
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+              <div class="row justify-content-center">
+              <div class="col col-lg-8 text-center">
+                {% for message in messages %}
+                  <div class="alert alert-warning" role="alert">
+                    {{ message }}
+                  </div>
+                {% endfor %}
+              </div>
+              </div>
+              {% endif %}
+            {% endwith %}
+
+            <!-- Jinja will fill this block in upon inheritance -->
+            {% block body_block %}{% endblock %}
+          </div>
+        </div>
+      </div>
+
+      {% include "base/footer.html" %}
+      {% block footer_block %}{% endblock %}
+
+    </body>
+</html>

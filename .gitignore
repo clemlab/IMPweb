@@ -5,9 +5,6 @@
 # heroku vars
 .env
 
-# don't keep django db under version control
-db.sqlite3
-
 # while under development, don't keep under version control
 */migrations/*
 

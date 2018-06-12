@@ -1,48 +1,39 @@
-ml-website
-==========
+impweb
+======
 
-Website for machine learning and other tools developed.
+Web application to provide access to machine learning and other tools
+for assisting with membrane protein expression
 
-The goal of this project would be to create a simple website that would accept
-gene/protein sequence(s), perform a calculation on it, and return the result
-in an appropriate format.
-
-The code for the calculation is handled by smsaladi/ml-expression.
-
-Ideally the build should be extensible and allow selecting among a set of
-calculation interfaces as they are developed.
-
-The backend will be written in Python using the Django framework. The frontend
-will be constructed using React.js (maybe Ajax) stylized using Bootstrap.js.
+The code for score calculation is handled by other codes
+(e.g. [clemlab/IMProve](https://github.com/clemlab/improve))
 
 
-## Risks:
+## Start workers with
 
-Input sanitization. Ideally this would eventually be a public-facing website,
-so having basic security precautions in place is necessary.
-
+```shell
+FLASK_APP=webapp.py flask rq worker impweb-high impweb-med impweb-low
+```
 
 ## TODO
 
-* [ ] save inputs to sqlite
+* Run all from CLI
 
-* [ ] error-logging
-* [ ] email-sending when done (need another field)
-* [ ] bokeh for visualization
+* output visualization
+    * Table with outcomes
+    * wrt nycomps, ecoli datasets
+    * run Pfam and see if exists in NYCOMPS, prerun?
+    * Button to download spreadsheet with features, score, names, and sequences
 
-* [ ] scheduler for cluster queue [torque]
-* [ ] qsub/job submission
-
-* [?] EMAIL OUT RESULTS
-* [ ] FILE UPLOADING AND SENDING OF SEQUENCES
-* [ ] HIGHER-UP SANITIZATION
-* [ ] SUPPORT FOR ARBITRARY NUMBERS OF SEQUENCES
-
-* [ ] passing an argument and returning between views - SEMI DONE
-
-* [ ] figure out hosting situation
+* Sanitization
+    * Javascript input santization? -- minimum length
+    * Accept uniprot id as input
 
 
-## Credits
+* Methods
+    * Would be cool to also provide scores from TMCrys method
+    * Find protein homologs and then coding sequences (seems like a bit of work)
+    * Recoding sequences (experimental)
+    * Pointing in sequence space (experimental)
 
-Backend groundwork put together by @cynest for his CS 11 project
+* REST API
+    * __Should be__ fairly easy to finish up

@@ -1,0 +1,96 @@
+{% extends 'base/base.html' %}
+
+
+{% block head_title %} User Profile {% endblock %}
+
+{% block body_block %}
+
+<div class="jumbotron">
+  <div class="row">
+    <div class="col-md-12">
+      
+
+<form action="/profile" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+    <fieldset>
+        <legend>User Profile</legend>
+
+        <div id="div_email" class="form-group">
+        <label for="email" class="control-label requiredField">Your email (if not an academic domain, your requests will initially be held until approval):
+            <span class="asteriskField">*</span>
+        </label>
+        <div class="controls ">
+            <input type="email" name="email" maxlength="100" class="emailinput form-control" required="" id="email" placeholder="Please enter an email address" value="{{ user.email }}" disabled></div>
+        </div>
+
+        <div id="div_fullname" class="form-group">
+        <label for="fullname" class="control-label requiredField">
+            Full Name
+            <span class="asteriskField">*</span>
+        </label>
+        <div class="controls ">
+            <input type="text" name="fullname" id="job_name" maxlength="100" class="textinput textInput form-control"
+            placeholder="Please enter your name"
+            {% if user.fullname %}
+            value="{{ user.fullname }}"
+            {% endif %}
+            required=""> </div>
+        </div>
+
+        <div id="div_institution" class="form-group">
+        <label for="institution" class="control-label requiredField">
+            Institution
+            <span class="asteriskField">*</span>
+        </label>
+        <div class="controls ">
+            <input type="text" name="institution" id="institution" maxlength="100" class="textinput textInput form-control"
+            placeholder="Please enter your institution"
+            {% if user.institution %}
+            value="{{ user.institution }}"
+            {% endif %}
+            required=""> </div>
+        </div>
+
+        <div id="div_priority" class="form-group">
+        <label for="priority" class="control-label requiredField">Job priority (contact us to change):
+            <span class="asteriskField">*</span>
+        </label>
+        <div class="controls ">
+            <input type="text" name="priority" maxlength="100" class="textinput textInput form-control" required="" id="priority" placeholder="User priority" value="{{ user.priority }}" disabled></div>
+        </div>
+
+        <div class="form-group">
+        <div id="div_publicjobs" class="checkbox">
+            <label for="publicjobs" class="">
+            <input type="checkbox" name="publicjobs" class="checkboxinput" id="publicjobs"
+            {% if user.public_jobs %}
+            checked>
+            {% else %}
+            >
+            {% endif %}
+            Display publically? (Public jobs complete more quickly!)
+            </label>
+        </div>
+        </div>
+        
+    </fieldset>
+    
+    <div class="form-group">
+        <div class="controls ">
+        <div class="buttonHolder">
+            <input type="submit" name="submit" value="Save changes" class="btn btn-primary button white" id="submit-id-submit">
+    
+        </div>
+        </div>
+    </div>
+</form>
+
+
+        
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

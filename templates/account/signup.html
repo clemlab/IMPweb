@@ -1,0 +1,50 @@
+{% extends 'base/base.html' %}
+
+
+{% block head_title %} Sign up {% endblock %}
+
+{% block body_block %}
+
+<div class="jumbotron">
+  <div class="row">
+    <div class="col-md-12">
+      
+
+<form action="/signup" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+
+    <fieldset>
+        <legend>Login/Sign up</legend>
+
+        Once you submit one job with your email, an account is automatically created for you. Fill in your email address below to be sent a link to view all your jobs. If you use a non-academic address, your requests will initially be held for approval.
+
+        <br>
+        <br>
+        <br>
+
+        <div id="div_email" class="form-group">
+        <label for="email" class="control-label requiredField">Your email:
+            <span class="asteriskField">*</span>
+        </label>
+        <div class="controls ">
+            <input type="email" name="email" maxlength="100" class="emailinput form-control" required="" id="email" placeholder="Please enter an email address"></div>
+        </div>
+    </fieldset>
+    
+    <div class="form-group">
+        <div class="controls ">
+        <div class="buttonHolder">
+            <input type="submit" name="submit" value="Submit" class="btn btn-primary button white" id="submit-id-submit">
+        </div>
+        </div>
+    </div>
+</form>
+
+
+        
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}

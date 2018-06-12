@@ -11,3 +11,13 @@ function check_navbar_active() {
 
 $(document).ready(check_navbar_active);
 $(".nav a").on("click", check_navbar_active);
+
+function randomize_order() {
+  var cards = $(".team-col");
+  for(var i = 0; i < cards.length; i++){
+      var target = Math.floor(Math.random() * cards.length -1) + 1;
+      var target2 = Math.floor(Math.random() * cards.length -1) +1;
+      cards.eq(target).before(cards.eq(target2));
+  }
+}
+$(document).ready(randomize_order);

@@ -1,67 +1,57 @@
 
-{% load staticfiles %}
 
 {% block body_block %}
 
 <div class="content">
   <div class="row">
 
-<div class="row team-row">
   <div class="team-col col-md-3" id="bil">
       <h3><a href="http://clemonslab.caltech.edu">Bil Clemons</a></h3>
       <img class="img-responsive team-img"
-           src="{% static "team_photos/WMC.jpg" %}"/>
+           src="{{ url_for('static', filename='team_photos/WMC.jpg') }}"/>
   </div>
 
   <div class="team-col col-md-3" id="stephen">
       <h3>Stephen Marshall</h3>
       <img class="img-responsive team-img"
-           src="{% static "team_photos/SSM.jpg" %}"/>
+           src="{{ url_for('static', filename='team_photos/SSM.jpg') }}"/>
   </div>
 
   <div class="team-col col-md-3" id="tom">
       <h3><a href="https://millergroup.caltech.edu">Tom Miller</a></h3>
       <img class="img-responsive team-img"
-           src="{% static "team_photos/TFM.jpg" %}"/>
+           src="{{ url_for('static', filename='team_photos/TFM.jpg') }}"/>
   </div>
-</div>
 
-<div class="row team-row">
   <div class="team-col col-md-3" id="axel">
       <h3>Axel Müller</h3>
       <img class="img-responsive team-img"
-           src="{% static "team_photos/AM.jpg" %}"/>
+           src="{{ url_for('static', filename='team_photos/AM.jpg') }}"/>
   </div>
 
   <div class="team-col col-md-3" id="charles">
       <h3>Charles Nelson</h3>
       <img class="img-responsive team-img"
-           src="{% static "team_photos/CN.jpg" %}"/>
+           src="{{ url_for('static', filename='team_photos/CN.jpg') }}"/>
   </div>
 
   <div class="team-col col-md-3" id="michiel">
       <h3>Michiel Niesen</h3>
       <img class="img-responsive team-img"
-           src="{% static "team_photos/MN.jpg" %}"/>
+           src="{{ url_for('static', filename='team_photos/MN.jpg') }}"/>
   </div>
-</div>
 
-<div class="row team-row">
   <div class="team-col col-md-3" id="shyam">
       <h3><a href="https://shyam.saladi.org">Shyam Saladi</a></h3>
       <img class="img-responsive team-img"
-           src="{% static "team_photos/SMS.jpg" %}"/>
+           src="{{ url_for('static', filename='team_photos/SMS.jpg') }}"/>
   </div>
 
   <div class="team-col col-md-3" id="matthew">
       <h3>Matthew Zimmer</h3>
       <img class="img-responsive team-img"
-           src="{% static "team_photos/MZ.jpg" %}"/>
+           src="{{ url_for('static', filename='team_photos/MZ.jpg') }}"/>
   </div>
-
-    <div class="team-col col-md-3" style="background:inherit">
-    </div>
-</div>
 
   </div>
 </div>

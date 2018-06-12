@@ -1,0 +1,41 @@
+{% extends 'webform/base.html' %}
+
+{% block body_block %}
+
+
+<table id="myTable" class="myTable">
+  <form name="foo" method="post" enctype="multipart/form-data">
+      <input id="csvfile" type="file" value="i">
+  </form>
+</table>
+
+
+<script>
+  $(document).ready(function(){
+      $('#myTable').DataTable();
+  });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/4.3.6/papaparse.min.js"
+        integrity="sha256-5nI7WwoRuBEpzsi7i4B4FoxptQfKFKKQXWRiLkPaGzA="
+        crossorigin="anonymous">
+</script>
+
+"{{ url_for('static', filename='team_photos/SSM.jpg') }}"
+
+
+<script>
+$(document).ready(function(){
+  var json = Papa.parse("/static/Table_S3_Family_Performances.csv",
+    {
+    header: true,
+    skipEmptyLines: true,
+    complete: function(results) {
+      console.log("Dataframe:", JSON.stringify(results.data));
+      console.log("Column names:", results.meta.fields);
+      console.log("Errors:", results.errors);
+    }
+  });
+})
+</script>
+{% endblock %}

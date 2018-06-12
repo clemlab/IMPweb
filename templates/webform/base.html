@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+
+{% block body_block %}
+
+<ul class="nav nav-tabs nav-justified">
+  <li role="presentation"><a href="{{ url_for('submit') }}">Predict Sequences</a></li>
+  <li role="presentation" class="disabled"><a href="#">Predict Families</a></li>
+  <li role="presentation" class="disabled"><a href="#">Predict Variants</a></li>
+  <li role="presentation"><a href="{{ url_for('public_results') }}">View Recent Results</a></li>
+  {% if session.get('user_email') %}
+  <li role="presentation"><a href="{{ url_for('user_data') }}">Private Results</a></li>
+  {% endif %}
+</ul>
+
+<br>
+
+<div class="jumbotron">
+  <div class="row">
+    <div class="col-md-12">
+
+{% block webform_block %}{% endblock %}
+
+    </div>
+  </div>
+</div>
+{% endblock %}

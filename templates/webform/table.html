@@ -1,0 +1,35 @@
+{% extends 'webform/base.html' %}
+
+{% block webform_block %}
+
+
+<table id="myTable" class="myTable">
+<thead>
+
+<tr>
+  <th>Batch Name</th>
+  <th>Sequence Name</th>
+  <th>IMProve Score</th>
+  <th>Sequence</th>
+  <!-- <th>Start Day</th> -->
+  <!-- <th>Time Taken</th> -->
+</tr>
+</thead>
+
+<tbody>
+  {% for r in results %}
+    <tr>
+    	<!-- <td> <a href="{{ r.url }}">{{ r.input }}</a> </td> -->
+      <td> {{ r.batch[0].job_name if r.batch else "" }} </td>
+      <td> {{ r.sequence.name }} </td>
+      <td> {{ r.score }} </td>
+      <td> {{ r.sequence.seq }} </td>
+    	<!-- <td> {{ r.begin }} </td> -->
+    	<!-- <td> {{ r.end }} </td> -->
+    </tr>
+  {% endfor %}
+</tbody>
+
+</table>
+
+{% endblock %}

@@ -1,34 +1,29 @@
-django
-biopython
-
 # heroku
 gunicorn
 whitenoise
 
-# database
-mysqlclient
-dj-database-url
+flask
+Flask-SQLAlchemy
 
-#nice forms
-django-crispy-forms
+biopython
 
-# running calculations
-rq
-django-rq
+# new rq version changes API, use this until Flask-RQ2 updates
+# accordingly
+rq==0.10.0
+Flask-RQ2
+Flask-Mail
+Flask-table
+flask-wtf
+Flask-RESTful
 
-# user authentication
-pyjwkest
-bcrypt
-django-allauth
+pymysql
 
-# email sending
-sendgrid-django
 
-# data visualization
+pytest
+pytest-cov
+codecov
+
 numpy
+pandas
 bokeh
 
-#Academic verification
-Flask==0.10.1
-PyTrie==0.2
-requests

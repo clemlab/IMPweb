@@ -1,0 +1,29 @@
+{% extends 'webform/base.html' %}
+
+{% block webform_block %}
+
+<table id="myTable" class="myTable">
+<tr>
+  <th>Protein Input</th>
+  <th>Results</th>
+  <th>Start Day</th>
+  <th>Time Taken</th>
+</tr>
+  {% for r in results %}
+    <tr>
+    	<td><a href="{{ r.url }}">{{ r.input }}</a></td>
+    	<td>{{ r.output }}</td>
+    	<td>{{ r.begin }}</td>
+    	<td>{{ r.end }}</td>
+    </tr>
+  {% endfor %}
+</table>
+
+
+<script>
+  $(document).ready(function(){
+      $('#myTable').DataTable();
+  });
+</script>
+
+{% endblock %}

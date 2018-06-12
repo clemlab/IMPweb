@@ -1,5 +1,4 @@
 
-{% load staticfiles %}
 
 {% block body_block %}
 
@@ -15,7 +14,7 @@
     <a href="http://www.biorxiv.org/content/early/2017/06/21/098673"> &gt;&gt; View on pre-print server</a>
     <p>
     <img class="img-responsive pub-img"
-         src="{% static "ecoli_ml_figure.png" %}">
+         src="{{ url_for('static', filename='ecoli_ml_figure.png') }}">
     </p><h4>Abstract</h4>
     <p align="justify">
     The expression of membrane proteins remains a major bottleneck in the characterization of these important proteins. Expression levels are currently unpredictable, which renders the pursuit of these targets challenging and inefficient. Evidence demonstrates that small changes in the nucleotide or amino-acid sequence can dramatically affect membrane protein biogenesis; yet these observations have not resulted in generalizable approaches to improve expression. Here, we develop a data- driven statistical model, named IMProve, that enriches for the likelihood of selecting membrane proteins that express in E. coli directly from sequence. The model, trained on experimental data, combines a set of sequence-derived variables resulting in a score that predicts the likelihood of expression. We test the model against various independent datasets that contain a variety of experimental outcomes demonstrating that the model significantly enriches for expressed proteins. Analysis of the underlying features reveals a significant role for nucleotide derived features in predicting expression. This computational model can immediately be used to identify favorable targets for characterization.
@@ -40,7 +39,7 @@
     <a href="http://dx.doi.org/10.1016/j.celrep.2016.07.042"> &gt;&gt; View on journal website</a>
     <p>
     <img class="img-responsive pub-img"
-         src="{% static "cgmd_figure.jpg" %}">
+         src="{{ url_for('static', filename='cgmd_figure.jpg') }}">
     </p><h4>Abstract</h4>
     <p align="justify">
     Integral membrane proteins (IMPs) control the flow of information and nutrients across cell membranes, yet IMP mechanistic studies are hindered by difficulties in expression. We investigate this issue by addressing the connection between IMP sequence and observed expression levels. For homologs of the IMP TatC, observed expression levels vary widely and are affected by small changes in protein sequence. The effect of sequence changes on experimentally observed expression levels strongly correlates with the simulated integration efficiency obtained from coarse-grained modeling, which is directly confirmed using an in vivo assay. Furthermore, mutations that improve the simulated integration efficiency likewise increase the experimentally observed expression levels. Demonstration of these trends in both Escherichia coli and Mycobacterium smegmatis suggests that the results are general to other expression systems. This work suggests that IMP integration is a determinant for successful expression, raising the possibility of controlling IMP expression via rational design.
