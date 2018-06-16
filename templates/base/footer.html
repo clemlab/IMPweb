@@ -4,12 +4,13 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='sticky-footer.css') }}">
 
 <!-- Fixed footer bar -->
+<!-- NO FOOTER
 <footer class="footer">
   <div class="container">
-    <p class="text-muted"> © Authors and the California Institute of Technology, 2017</p>
-    {{ HEROKU_SLUG_DESCRIPTION }}  {{ HEROKU_RELEASE_CREATED_AT }} {{ HEROKU_RELEASE_VERSION }}
+    {# {{ env['HEROKU_SLUG_DESCRIPTION'] }}  {{ env['HEROKU_RELEASE_CREATED_AT'] }} {{ env['HEROKU_RELEASE_VERSION'] }} #}
   </div>
 </footer>
+-->
 
 <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
@@ -26,17 +27,36 @@
   integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
   crossorigin="anonymous"></script>
 
+  <script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
 <!-- client side form validation from ParsleyJS -->
 <script src="http://parsleyjs.org/dist/parsley.min.js" crossorigin="anonymous"></script>
-
-<!-- include tether -->
-<script src="//cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 
 <!-- custom javascript code -->
 <script src="{{ url_for('static', filename='misc_utils.js') }}"></script>
 
 <!-- datatables -->
-<link rel="stylesheet" href="//cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css" crossorigin="anonymous">
-<script src="//cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.18/css/dataTables.bootstrap.min.css" crossorigin="anonymous">
+
+<!-- buttons --> 
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/dataTables.buttons.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.flash.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.html5.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/1.5.2/js/buttons.print.min.js"></script>
+
+
+<script>
+    $(document).ready(function() {
+      $('#myTable').DataTable( {
+          dom: 'Bfrtip',
+          buttons: [
+              'copy', 'csv', 'excel', 'pdf', 'print'
+          ]
+      } );
+  } );
+  </script>
 
 {% endblock %}
