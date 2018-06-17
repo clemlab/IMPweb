@@ -16,12 +16,10 @@ FLASK_APP=webapp.py flask rq worker impweb-high impweb-med impweb-low
 
 ## TODO
 
-* Run all from CLI
-
 * output visualization
     * Table with outcomes
     * wrt nycomps, ecoli datasets
-    * run Pfam and see if exists in NYCOMPS, prerun?
+    * find metadata, run Pfam, see if exists in NYCOMPS, prerun
     * Button to download spreadsheet with features, score, names, and sequences
 
 * Sanitization
@@ -30,6 +28,7 @@ FLASK_APP=webapp.py flask rq worker impweb-high impweb-med impweb-low
 
 
 * Methods
+    * Run mmseqs to find coding sequences
     * Would be cool to also provide scores from TMCrys method
     * Find protein homologs and then coding sequences (seems like a bit of work)
     * Recoding sequences (experimental)
@@ -37,3 +36,6 @@ FLASK_APP=webapp.py flask rq worker impweb-high impweb-med impweb-low
 
 * REST API
     * __Should be__ fairly easy to finish up
+
+* Run all from CLI
+

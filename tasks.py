@@ -52,7 +52,7 @@ def find_coding_seqs():
     """
 
 @rq.job('impweb-med', timeout='10m')
-def calculate_score(batch, notify=True, force=False):
+def calculate_score(batch, seqtext, notify=True, force=False):
     """Calculate scores for all sequences in a batch
     subprocess.call("./test.sh
     Assuming that all data in a batch has the same predictor
@@ -61,6 +61,36 @@ def calculate_score(batch, notify=True, force=False):
     * Check if sequence is too long, warn user, and dont run RNA folding calculations
 
     """
+
+    msg = Message("[IMPWEB] Batch data `{}` ".format(batch.job_name),
+                  recipients=["clemlab@gmail.com"])
+    msg.body = \
+"""
+Just in case, here is the batch data for {}:
+
+{}
+
+""".format(str(batch), seqtext)# "\n".join([str(s) for s in seq_objs]))
+
+    mail.send(msg)
+
+    if notify:
+        batch_notification(batch)
+
+    for seq in seq_objs:
+        print(Sequence.query.filter_by(id=seq.id).count())
+        return
+        seq = db.session.merge(seq)
+        db.session.commit()
+        
+        score = Score(sequence_id=seq.id, predictor_id=method)
+        score = db.session.merge(score)
+        db.session.commit()
+
+        batch.score.append(score)
+        db.session.commit()
+
+
     batch = db.session.merge(batch)
 
     if not batch.date_started:
@@ -92,7 +122,7 @@ def calculate_score(batch, notify=True, force=False):
         df_feats = pd.read_csv(fn + '.allstats.csv')
         df_scores = pd.read_csv(fn + '.allstats.ml21', header=None, names=['score'])
 
-    df_feats = pd.concat([df_feats, df_scores], axis=1)
+    df_feats = pd.concat([df_feats, df_scores], axis=1, ignore_index=True)
 
     # add scores and features to database
     for _, row in df_feats.iterrows():
@@ -127,7 +157,9 @@ def batch_notification(batch):
 """
 Hello --
 
-Thanks for your interest in IMProve.caltech.edu. Your job has completed.
+Thanks for your interest in IMProve.caltech.edu. Your job has entered the queue.
+We will send you another email when it completes.
+
 Please visit:
 
 {}

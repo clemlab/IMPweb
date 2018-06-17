@@ -33,24 +33,24 @@ class StrippedString(types.TypeDecorator):
 
 
 
-batch_score = db.Table(
-    'batch_scores', 
-    db.Column('batch_id', db.Integer, db.ForeignKey('batches.id'),
-              primary_key=True, nullable=False),
-    db.Column('score_id', db.Integer, db.ForeignKey('scores.id'),
-              primary_key=True, nullable=False),
-)
+# batch_score = db.Table(
+#     'batch_scores', 
+#     db.Column('batch_id', db.Integer, db.ForeignKey('batches.id'),
+#               primary_key=True, nullable=False),
+#     db.Column('score_id', db.Integer, db.ForeignKey('scores.id'),
+#               primary_key=True, nullable=False),
+# )
 
 class User(db.Model):
     __tablename__ = 'users'
-    email = db.Column(StrippedString(100), primary_key=True)
-    id = db.Column(db.Integer, nullable=False, autoincrement=True, unique=True)
-    fullname = db.Column(StrippedString(100))
-    institution = db.Column(StrippedString(100))
+    email = db.Column(db.String(100), primary_key=True)
+    id = db.Column(db.Integer, nullable=False, autoincrement=True)
+    fullname = db.Column(StrippedString(100), nullable=True)
+    institution = db.Column(StrippedString(100), nullable=True)
 
+    public_jobs = db.Column(db.Boolean, default=True, nullable=False)
     is_admin = db.Column(db.Boolean, default=False, nullable=False)
     is_active = db.Column(db.Boolean, default=True, nullable=False)
-    public_jobs = db.Column(db.Boolean, default=True, nullable=False)
 
     # low, medium, high
     _priority = db.Column('priority', db.String, default='low')
@@ -85,11 +85,12 @@ class Batch(db.Model):
     is_public = db.Column(db.Boolean, default=True, nullable=False)
     
     is_done = db.Column(db.Boolean, default=False, nullable=False)
+    submission_ip = db.Column(StrippedString(50), nullable=True)
     date_entered = db.Column(db.DateTime, default=datetime.utcnow)
     date_started = db.Column(db.DateTime, default=None)
     date_completed = db.Column(db.DateTime, default=None)
 
-    scores = db.relationship('Score', secondary=batch_score, backref='batch')
+    sequences = db.relationship('Sequence', backref='batch')
 
     def __repr__(self):
         return json.dumps({c.name: getattr(self, c.name) for c in self.__table__.columns}, default=str)
@@ -101,11 +102,11 @@ class Batch(db.Model):
 
 class Predictor(db.Model):
     __tablename__ = 'predictors'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    name = db.Column(StrippedString(100), nullable=False)
+    name = db.Column(StrippedString(100), primary_key=True, nullable=False)
+    id = db.Column(db.Integer, autoincrement=True, nullable=False)
     protein_only = db.Column(db.Boolean, nullable=False)
 
-    scores = db.relationship('Score', backref='predictor', lazy=True)
+    sequences = db.relationship('Sequence', backref='predictor', lazy=True)
 
     def __repr__(self):
         return json.dumps({c.name: getattr(self, c.name) for c in self.__table__.columns}, default=str)
@@ -123,36 +124,48 @@ class Sequence(db.Model):
     name = db.Column(StrippedString(100))
     _seq = db.Column('seq', db.Text, nullable=False)
 
+    # batch related info
+    batch_id = db.Column(db.Integer, db.ForeignKey(Batch.id), nullable=True, primary_key=True)
+    
+    # score related items
+    predictor_id = db.Column(db.Integer, db.ForeignKey(Predictor.id), nullable=True)
+    score = db.Column(db.Float, nullable=True)
+    data = db.Column(db.Text, nullable=True)
+    error = db.Column(StrippedString(100), nullable=True)
+
     # connects coding with protein sequences
     protein_id = db.Column(db.String(32), db.ForeignKey('sequences.id'), nullable=True)
     nuc_seqs = db.relationship('Sequence', remote_side=[protein_id], uselist=True)
 
     @hybrid_property
-    def seq(self): return self._seq
+    def seq(self):
+        return self._seq
     @seq.setter
     def seq(self, data):
-        self._seq = data
-        self.id = hashlib.md5(data.encode('utf-8')).hexdigest()
+        self._seq = data.upper()
+        self.id = self.to_id(data)
         # self._is_protein = utils.is_protein(data)
 
-    scores = db.relationship('Score', backref='sequence', lazy="joined", innerjoin=True)
+    @staticmethod
+    def to_id(data):
+        return hashlib.md5(data.encode('utf-8')).hexdigest()
 
     def __repr__(self):
         return json.dumps({c.name: getattr(self, c.name) for c in self.__table__.columns}, default=str)
 
-class Score(db.Model):
-    __tablename__ = 'scores'
-    sequence_id = db.Column(db.String(32), db.ForeignKey(Sequence.id), primary_key=True, nullable=False)
-    predictor_id = db.Column(db.Integer, db.ForeignKey(Predictor.id), primary_key=True, nullable=False)
-    id = db.Column(db.Integer, nullable=False, autoincrement=True, unique=True)
-    score = db.Column(db.Float, nullable=True)
-    data = db.Column(db.Text, nullable=True)
-    error = db.Column(StrippedString(100), nullable=True)
+# class Score(db.Model):
+#     __tablename__ = 'scores'
+#     sequence_id = db.Column(db.String(32), db.ForeignKey(Sequence.id), primary_key=True, nullable=False)
+#     predictor_id = db.Column(db.Integer, db.ForeignKey(Predictor.id), primary_key=True, nullable=False)
+#     id = db.Column(db.Integer, nullable=False, autoincrement=True, unique=True)
+#     score = db.Column(db.Float, nullable=True)
+#     data = db.Column(db.Text, nullable=True)
+#     error = db.Column(StrippedString(100), nullable=True)
 
-    batches = db.relationship('Batch', secondary=batch_score, backref='score')
+#     batches = db.relationship('Batch', secondary=batch_score, backref='score')
 
-    def __repr__(self):
-        return json.dumps({c.name: getattr(self, c.name) for c in self.__table__.columns}, default=str)
+#     def __repr__(self):
+#         return json.dumps({c.name: getattr(self, c.name) for c in self.__table__.columns}, default=str)
 
 # class Family(db.Model):
 #    pfam_id = db.Column

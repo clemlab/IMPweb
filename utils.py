@@ -41,9 +41,8 @@ def is_protein(seq):
     else:
         return True
 
-def parse_fasta(text):
-    fh = io.StringIO(text)
-    for rec in Bio.SeqIO.parse(fh, "fasta"):
+def parse_fasta(fn):
+    for rec in Bio.SeqIO.parse(fn, "fasta"):
         yield rec.id, str(rec.seq)
 
 def saniscript(POST, FILES):
@@ -82,3 +81,22 @@ def NamedTemporaryFile(*args, **kwargs):
     tf = tempfile.NamedTemporaryFile(*args, delete=False, **kwargs)
     yield tf
     os.unlink(tf.name)
+
+
+def mask_ip(addr):
+    """Mask a given IP address to the beginning bit
+    """
+    if addr is None:
+        return ''
+
+    # ipv6 or IPv4 mapped IPv6
+    if ':' in addr:
+        data = addr.split(':', maxsplit=5)[:4]
+        return "{}:{}:{}:{}:xxxx:xxxx:xxxx:xxxx".format(*data)
+    # ipv4
+    elif '.' in addr:
+        data = addr.split('.', maxsplit=3)[:2]
+        return "{}.{}.xxx.xxx".format(*data)
+    else:
+        return 'x' * len(addr)
+    

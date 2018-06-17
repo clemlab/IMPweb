@@ -52,3 +52,14 @@ body {
   background-color: #eee;
   border-radius:5px;
 }
+
+/* https://stackoverflow.com/a/22352538/2320823 */
+.extraClass {
+  height: 122px; 
+  position: relative;
+}
+
+.extraClass ul {
+  position: absolute;
+  bottom: 0;
+}

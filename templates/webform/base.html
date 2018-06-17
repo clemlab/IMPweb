@@ -2,15 +2,21 @@
 
 {% block body_block %}
 
+<div class="row">
+    <div class="col col-md-12 extraClass">
+
 <ul class="nav nav-tabs nav-justified">
-  <li role="presentation"><a href="{{ url_for('submit') }}">Predict Sequences</a></li>
-  <li role="presentation" class="disabled"><a href="#">Predict Families</a></li>
-  <li role="presentation" class="disabled"><a href="#">Predict Variants</a></li>
+  <li role="presentation"><a href="{{ url_for('basic') }}">Predict Sequences</a></li>
+  <li role="presentation" class="disabled"><a href="{{ url_for('families') }}">Browse Families</a></li>
+  <li role="presentation" class="disabled"><a href="{{ url_for('variants') }}">Predict Variants (Beta)</a></li>
   <li role="presentation"><a href="{{ url_for('public_results') }}">View Recent Results</a></li>
   {% if session.get('user_email') %}
   <li role="presentation"><a href="{{ url_for('user_data') }}">Private Results</a></li>
   {% endif %}
 </ul>
+
+</div>
+</div>
 
 <br>
 
@@ -24,3 +30,4 @@
   </div>
 </div>
 {% endblock %}
+
