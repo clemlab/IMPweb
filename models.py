@@ -131,6 +131,7 @@ class Sequence(db.Model):
     predictor_id = db.Column(db.Integer, db.ForeignKey(Predictor.id), nullable=True)
     score = db.Column(db.Float, nullable=True)
     data = db.Column(db.Text, nullable=True)
+    pfam = db.Column(db.Text, nullable=True)
     error = db.Column(StrippedString(100), nullable=True)
 
     # connects coding with protein sequences

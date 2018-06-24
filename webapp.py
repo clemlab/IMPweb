@@ -394,6 +394,7 @@ def load(allstats, fna=None, score=None, jobname=None, user_id=2):
 
     import pandas as pd
     import Bio.SeqIO
+    import Bio.Seq
 
     df_feat = pd.read_csv(allstats)
     feat_cols = [c for c in df_feat.columns.tolist() if c not in ['title']]
