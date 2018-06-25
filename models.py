@@ -153,7 +153,12 @@ class Sequence(db.Model):
         return hashlib.md5(data.encode('utf-8')).hexdigest()
 
     def __repr__(self):
-        return json.dumps({c.name: getattr(self, c.name) for c in self.__table__.columns}, default=str)
+        d = {c.name: getattr(self, c.name) for c in self.__table__.columns}
+        # truncate long values
+        for k in ['data', 'error']:
+            if len(d[k]) > 25:
+                d[k] = d[k][:10] + '...' + d[k][-10:]
+        return json.dumps(d, default=str)
 
 # class Score(db.Model):
 #     __tablename__ = 'scores'
