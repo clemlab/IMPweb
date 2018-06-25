@@ -7,33 +7,36 @@
 <thead>
 
 <tr>
+  <th>Status</th>
   <th>Batch Name</th>
-  <th>User</th>
+  <!-- <th>User</th> -->
   <th>Host</th>
-  <th>Sequence ID</th>
+  <!-- <th>Sequence ID</th>
   <th>IMProve Score</th>
-  <th>Sequence</th>
-  <!-- <th>Start Day</th> -->
+  <th>Sequence</th> -->
+  <th>Start Time</th>
   <!-- <th>Time Taken</th> -->
 </tr>
 </thead>
 
 <tbody>
-  {% for r in results %}
+  {% for b in batches %}
     <tr>
-    	<!-- <td> <a href="{{ r.url }}">{{ r.input }}</a> </td> -->
-      <td> {{ r.batch[0].job_name if r.batch else "" }} </td>
-      <td> {{ r.batch[0].user.email[:5] + '...' if r.batch else "" }} </td>
-      <td> {{ mask_ip(r.batch[0].submission_ip) if r.batch else "" }} </td>
-      <td> {{ r.sequence.name }} </td>
-      <td> {{ "{:+2.4f}".format(r.score) }} </td>
-      <td> {{ r.sequence.seq }} </td>
-    	<!-- <td> {{ r.begin }} </td> -->
-    	<!-- <td> {{ r.end }} </td> -->
+      <td> Done </td>
+      <td> {{ b.job_name }} </td>
+      <td> {{ mask_ip(b.submission_ip) }} </td>
+      <td> {{ b.date_entered }} </td>
     </tr>
   {% endfor %}
 </tbody>
 
 </table>
+
+{% endblock %}
+
+
+{% block footer_block %}
+
+<link rel="stylesheet" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 
 {% endblock %}

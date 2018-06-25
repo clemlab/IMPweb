@@ -126,7 +126,6 @@ def basic():
             seq_objs += [Sequence(name=name, seq=seq, batch_id=batch.id, predictor_id=1)]
         os.unlink(fn)
 
-
     # method = request.form['method']
     # if method == 'improve_2018':
     #     method = 1
@@ -152,20 +151,14 @@ def basic():
 """
 @app.route('/public', methods=['GET'])
 def public_results():
-   # batch = Batch.query.limit(50).all()
-    #if batch and batch.is_done:
-    # table = (Batch.query
-    #               .filter(Batch.is_public)
-    #               .order_by(Batch.date_entered.desc())
-    #               .limit(50)
-    #               .all())
-    # table = Batch.query.filter(Score.score.isnot(None)).order_by().limit(50).all()
-    # else:
-    #     table = None
-    # for r in table:
-    #     print(r.batch[0])
+    batches = (Batch.query
+                  .filter(Batch.is_public)
+                  .order_by(Batch.date_entered.desc())
+                  .limit(50)
+                  .all())
+    print(batches)
     flash("Something is broken - We are working on it!")
-    return render_template('webform/table.html', results=None)
+    return render_template('webform/table.html', batches=batches)
 
 
 @app.route('/batch/<string:batch_payload>', methods=['GET'])
