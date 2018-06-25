@@ -156,7 +156,7 @@ class Sequence(db.Model):
         d = {c.name: getattr(self, c.name) for c in self.__table__.columns}
         # truncate long values
         for k in ['data', 'error']:
-            if len(d[k]) > 25:
+            if d[k] and len(d[k]) > 25:
                 d[k] = d[k][:10] + '...' + d[k][-10:]
         return json.dumps(d, default=str)
 
