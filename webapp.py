@@ -40,6 +40,7 @@ else:
 # For data storage
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['SQLALCHEMY_DATABASE_URI']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+app.config['SQLALCHEMY_ECHO'] = True
 db.init_app(app)
 
 # For job handling
@@ -86,16 +87,10 @@ def basic():
             email=flask.session['user_email'] if flask.session.get('user_email') else "")
 
     email = request.form['email'].strip()
-    user = User.query.filter_by(email=email).first()
-    if user:
-        user_id = user.id
-    else:
-        user = User(email=email)
-        user = db.session.merge(user)
-        db.session.commit()
-        user_id = user.id
-
-    print("user_id", user)
+    user = User(email=email)
+    user = db.session.merge(user)
+    db.session.commit()
+    user_id = user.id
 
     # capture ip address in case of spam/other issues (Rosetta, others do this)
     # https://stackoverflow.com/a/49760261/2320823
@@ -110,7 +105,6 @@ def basic():
                   submission_ip=ip,
                   is_public=request.form['keeppublic'] == "on")
     batch = db.session.merge(batch)
-
     db.session.commit()
     
     # handle text area

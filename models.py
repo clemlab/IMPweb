@@ -55,7 +55,8 @@ class User(db.Model):
     # low, medium, high
     _priority = db.Column('priority', db.String, default='low')
 
-    batches = db.relationship('Batch', backref='user', lazy="joined", innerjoin=True)
+    # when this is "lazy", querying doesn't work for some reason
+    batches = db.relationship('Batch', backref='user', lazy="noload", innerjoin=True)
 
     @hybrid_property
     def priority(self):
