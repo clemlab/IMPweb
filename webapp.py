@@ -113,7 +113,7 @@ def basic():
 
     if sequence != '':
         if '>'  in sequence:
-            for name, seq in utils.parse_fasta(sequence):
+            for name, seq in utils.parse_fasta(io.StringIO(sequence)):
                 seq_objs.append(Sequence(name=name, seq=seq, batch_id=batch.id, predictor_id=1))
         else:
             seq_objs.append(Sequence(name=batch.job_name, seq=sequence, batch_id=batch.id, predictor_id=1))
@@ -156,7 +156,6 @@ def public_results():
                   .order_by(Batch.date_entered.desc())
                   .limit(50)
                   .all())
-    print(batches)
     flash("Something is broken - We are working on it!")
     return render_template('webform/table.html', batches=batches)
 
@@ -171,7 +170,7 @@ def batch_data(batch_payload=None):
             batch_id = s.loads(batch_payload)
         except BadSignature:
             flash("That URL looks malformed. Please try clinking your link again.\n"
-                        "Or contact the site administrator.")
+                  "Or contact the site administrator.")
             return redirect(url_for("basic"))
 
     batch = Batch.query.filter_by(id=batch_id).first()
