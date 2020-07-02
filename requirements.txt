@@ -32,3 +32,5 @@ bokeh
 Flask==0.10.1
 PyTrie==0.2
 requests
+
+pillow>=6.2.3 # not directly required, pinned by Snyk to avoid a vulnerability
