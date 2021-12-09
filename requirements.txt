@@ -29,6 +29,6 @@ numpy
 bokeh
 
 #Academic verification
-Flask==0.10.1
+Flask==0.12.3
 PyTrie==0.2
 requests
